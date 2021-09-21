@@ -1,0 +1,71 @@
+﻿<Window x:Class="WakfuAudio.Controls.MonsterLoader"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WakfuAudio.Controls"
+        mc:Ignorable="d"
+        Title="MonsterLoader" Height="450" Width="800" Background="#FF415F68" Closed="OnCLose">
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <TextBlock x:Name="FamilyInfo" 
+                   HorizontalAlignment="Center" 
+                   VerticalAlignment="Center" 
+                   Foreground="White" FontSize="24">
+            
+        </TextBlock>
+        <TextBlock x:Name="MonsterInfo" Grid.Row="1"
+                   HorizontalAlignment="Center" 
+                   VerticalAlignment="Center" 
+                   Foreground="White" FontSize="24">
+
+        </TextBlock>
+        <TextBlock x:Name="TimeBox" Grid.Row="2" 
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   FontSize="24" Foreground="#FFCFCFCF">
+            
+        </TextBlock>
+        <Button Grid.Row="4" FontSize="24" Margin="10" Click="StopLoadingClick">
+            Stop
+        </Button>
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock HorizontalAlignment="Right" VerticalAlignment="Center" Foreground="White" Margin="5,0">
+                overwritte monsters :
+            </TextBlock>
+            <CheckBox Grid.Column="1" VerticalAlignment="Center"
+                      HorizontalAlignment="Left" Margin="5,0"
+                      IsChecked="True" x:Name="OverwritteBox">
+                
+            </CheckBox>
+            <TextBlock Grid.Column="2" Margin="5,0" VerticalAlignment="Center" Foreground="White">
+                Show Errors :
+            </TextBlock>
+            <CheckBox Grid.Column="3" VerticalAlignment="Center" 
+                      Margin="5,0" x:Name="ShowErrorBox">
+                
+            </CheckBox>
+            
+        </Grid>
+        <Button Grid.Row="4" FontSize="24" Margin="10" 
+                Click="StartLoadingClick"
+                x:Name="StartButton">
+            Start
+        </Button>
+    </Grid>
+</Window>

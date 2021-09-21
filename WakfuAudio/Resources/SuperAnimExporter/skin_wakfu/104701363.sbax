@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbax version="1">
+
+	<extensions>
+
+		<extension file="AnimChaferElite.anm"/>
+		
+	</extensions>
+	
+</sbax>

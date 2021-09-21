@@ -1,0 +1,30 @@
+﻿<Window x:Class="WakfuAudio.Controls.AskForValue"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WakfuAudio.Controls"
+        mc:Ignorable="d"
+        Title="" Height="100" Width="200" Background="#FF415F68">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBox VerticalAlignment="Center" Margin="5"
+                 x:Name="ValueBox" KeyUp="BoxKeyUp"
+                 />
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Margin="5" Click="OkClick">
+                Ok
+            </Button>
+            <Button Grid.Column="1" Margin="5" Click="CancelClick">
+                Cancel
+            </Button>
+        </Grid>
+    </Grid>
+</Window>

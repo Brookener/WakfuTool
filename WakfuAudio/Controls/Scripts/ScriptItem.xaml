@@ -1,0 +1,51 @@
+﻿<UserControl x:Class="WakfuAudio.ScriptItem"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WakfuAudio"
+             mc:Ignorable="d" 
+             d:DesignHeight="30" d:DesignWidth="100" MouseRightButtonDown="ControlMouseLeftDown" LostFocus="ControlUnfocused" GotFocus="ControlFocused">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Border Background="#33FFFFFF" Grid.ColumnSpan="3"
+        BorderBrush="#CCFFFFFF" BorderThickness="2"
+        x:Name="Selector">
+
+        </Border>
+
+        <TextBox x:Name="IdBox" 
+                     MouseLeftButtonDown="ControlMouseLeftDown" 
+                     VerticalAlignment="Center" Background="{x:Null}" 
+                     BorderBrush="{x:Null}" BorderThickness="0" 
+                     Margin="3,3,0,3" FontSize="16" KeyUp="IdBoxKeyUp">
+
+            </TextBox>
+        <TextBox Grid.Column="1" x:Name="FrameBox" MaxWidth="80"
+                 Background="{x:Null}" Foreground="White"
+                 BorderThickness="0" KeyUp="FrameBoxKeyUp" Margin="5,3,12,3" HorizontalAlignment="Right" VerticalAlignment="Center" LostFocus="FrameBoxLostFocus" FontSize="14">
+
+            </TextBox>
+        <Image Grid.Column="2" Width="8" Margin="4,0" x:Name="WarningIcon"
+               Source="../../Icons/Warning.png"
+               ToolTip="Script has reference to a missing asset"/>
+        <Button Grid.Column="3" Width="15" Click="RemoveScriptClick"
+                BorderThickness="0" x:Name="RemoveButton">
+            <Button.Background>
+                <ImageBrush ImageSource="../../Icons/CloseIcon.png" Stretch="Uniform"/>
+            </Button.Background>
+
+        </Button>
+    </Grid>
+    
+</UserControl>

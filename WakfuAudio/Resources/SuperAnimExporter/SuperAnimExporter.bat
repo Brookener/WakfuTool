@@ -1,0 +1,1 @@
+java -Xmx512m -jar SuperAnimExporter.jar anim_wakfu.xml

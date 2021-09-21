@@ -1,0 +1,221 @@
+﻿<UserControl x:Class="WakfuAudio.AnimItem"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WakfuAudio"
+             mc:Ignorable="d" 
+             d:DesignHeight="30" d:DesignWidth="250"
+             BorderThickness="0" BorderBrush="#CCDADADA" Margin="0,0,0,10" MouseLeftButtonDown="ControlMouseLeftDown">
+    
+    <Grid x:Name="MainGrid" Background="#19FFFFFF">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Anim Name -->
+        <Grid Background="#7F686868">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="SplitButton" Width="20" BorderThickness="0" 
+                    Click="SplitClick"
+                    ToolTip="Split animation into the different angles">
+                <Button.Background>
+                    <ImageBrush ImageSource="../Icons/Split.png" Stretch="Uniform"/>
+                </Button.Background>
+
+            </Button>
+            <Button x:Name="MergeButton" Width="20" Visibility="Collapsed"
+                    BorderThickness="0" Click="MergeClick"
+                    ToolTip="Merge different angles into one animation">
+                <Button.Background>
+                    <ImageBrush ImageSource="../Icons/Merge.png" Stretch="Uniform"/>
+                </Button.Background>
+
+            </Button>
+            <Button x:Name="NameBlock" Foreground="White" 
+                     Grid.Column="1"
+                     FontWeight="Bold" 
+                     Background="{x:Null}" 
+                     BorderBrush="{x:Null}" BorderThickness="0" 
+                     Margin="0,3" FontSize="16" 
+                     Click="AnimClick"/>
+            <ComboBox Grid.Column="2" Width="0" BorderThickness="0"
+                      x:Name="AngleBoxes">
+                <ComboBoxItem>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox >
+                            
+                        </CheckBox>
+                        <TextBlock>
+                            0
+                        </TextBlock>
+                    </StackPanel>
+                </ComboBoxItem>
+                <ComboBoxItem>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox >
+
+                        </CheckBox>
+                        <TextBlock>
+                            1
+                        </TextBlock>
+                    </StackPanel>
+                </ComboBoxItem>
+                <ComboBoxItem>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox >
+
+                        </CheckBox>
+                        <TextBlock>
+                            2
+                        </TextBlock>
+                    </StackPanel>
+                </ComboBoxItem>
+                <ComboBoxItem>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox >
+
+                        </CheckBox>
+                        <TextBlock>
+                            3
+                        </TextBlock>
+                    </StackPanel>
+                </ComboBoxItem>
+                <ComboBoxItem>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox >
+
+                        </CheckBox>
+                        <TextBlock>
+                            4
+                        </TextBlock>
+                    </StackPanel>
+                </ComboBoxItem>
+                <ComboBoxItem>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox >
+
+                        </CheckBox>
+                        <TextBlock>
+                            5
+                        </TextBlock>
+                    </StackPanel>
+                </ComboBoxItem>
+                <ComboBoxItem>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox >
+
+                        </CheckBox>
+                        <TextBlock>
+                            6
+                        </TextBlock>
+                    </StackPanel>
+                </ComboBoxItem>
+                <ComboBoxItem>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox >
+
+                        </CheckBox>
+                        <TextBlock>
+                            7
+                        </TextBlock>
+                    </StackPanel>
+                </ComboBoxItem>
+                
+            </ComboBox>
+        </Grid>
+        
+
+        <!-- Sounds -->
+        <Border Grid.Column="1" BorderThickness="2,0,0,0" BorderBrush="White">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid Background="Black">
+                    <Button Grid.Column="0" BorderThickness="0" 
+                        Click="AddScriptClick" Width="15"
+                            ToolTip="Add Sound script">
+                        <Button.Background>
+                            <ImageBrush ImageSource="../Icons/PlusIcon.png" Stretch="Uniform"/>
+                        </Button.Background>
+
+                    </Button>
+                </Grid>
+                
+                <StackPanel x:Name="SoundBin" Grid.Column="1"
+                            Background="{x:Null}">
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Barks -->
+        <Border Grid.Column="2" BorderThickness="2,0,0,0" 
+                BorderBrush="#FCFFFFFF">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Background="Black" >
+                    <Button BorderThickness="0" Click="AddBarkClick"
+                            ToolTip="Add Bark script"
+                            Width="15">
+                        <Button.Background>
+                            <ImageBrush ImageSource="../Icons/PlusIcon.png" Stretch="Uniform"/>
+                        </Button.Background>
+
+                    </Button>
+                </Grid>
+                
+                <StackPanel x:Name="BarkBin" Grid.Column="1" Background="{x:Null}" Margin="10,0,0,0"
+                 >
+                </StackPanel>
+            </Grid>
+        </Border>
+        
+        <!-- Aps -->
+        <Border Grid.Column="3" BorderThickness="2,0,0,0" 
+                BorderBrush="#FCFFFFFF">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Background="Black" >
+                    <Button BorderThickness="0" Click="AddApsClick"
+                            ToolTip="Add Aps script. Shift+Click to increment"
+                            Width="15">
+                        <Button.Background>
+                            <ImageBrush ImageSource="../Icons/PlusIcon.png" Stretch="Uniform"/>
+                        </Button.Background>
+
+                    </Button>
+                </Grid>
+
+                <StackPanel x:Name="ApsBin" Grid.Column="1" Background="{x:Null}" Margin="10,0,0,0"
+                 >
+                </StackPanel>
+            </Grid>
+        </Border>
+
+
+
+
+
+    </Grid>
+</UserControl>

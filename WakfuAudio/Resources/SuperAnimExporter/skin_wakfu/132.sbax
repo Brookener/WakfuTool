@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbax version="1">
+	<metadatas/>
+	<extensions>		
+		<import file="gostof_male.sbax"/>		
+		<extension file="AnimSort_130.anm"/>
+		<extension file="AnimPosing05.anm"/>
+		<extension file="AnimPosing07.anm"/>
+		<extension file="AnimPosing08.anm"/>
+
+		<extension file="AnimAssisPosingBanc02.anm"/>
+		<extension file="AnimAssisPosingTabouret00.anm"/>
+
+	</extensions>
+</sbax>

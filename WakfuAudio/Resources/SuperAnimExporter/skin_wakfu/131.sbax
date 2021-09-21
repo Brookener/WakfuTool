@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbax version="1">
+	<metadatas>
+		<hide onEquip="KEY_CHAPEAU" hide="CheveuxHaut"/>
+
+		<hide onEquip="KEY_CHAPEAU_INTEGRALE" hide="Oreille"/>
+		<hide onEquip="KEY_CHAPEAU_INTEGRALE" hide="CheveuxHaut"/>
+		<hide onEquip="KEY_CHAPEAU_INTEGRALE" hide="CheveuxArriere"/>
+		<hide onEquip="KEY_CHAPEAU_INTEGRALE" hide="CheuveuxNatteHaute"/>
+		<hide onEquip="KEY_CHAPEAU_INTEGRALE" hide="CheveuxNatteBasse"/>
+
+	</metadatas>
+	<extensions>
+		<import file="player_femele.sbax"/>	
+		<extension file="AnimSort_130.anm"/>
+		<extension file="AnimPosing01.anm"/>
+		<extension file="AnimPosing02.anm"/>
+		<extension file="AnimPosing06.anm"/>
+		<extension file="AnimPosing07.anm"/>
+		<extension file="AnimPosing09.anm"/>
+
+		<extension file="AnimPosingAssis01.anm"/>
+		<extension file="AnimPosingAssis03.anm"/>
+		<extension file="AnimPosingAssis10.anm"/>
+		<extension file="AnimPosingAssis11.anm"/>
+		
+		<extension file="AnimMetierPeche03.anm"/>
+
+		<extension file="AnimAssisPosingBanc00.anm"/>
+		<extension file="AnimAssisPosingTabouret01.anm"/>
+
+				
+	</extensions>
+</sbax>

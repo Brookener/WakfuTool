@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbax version="1">
+	<metadatas/>
+	<extensions>			
+
+		<extension file="AnimCombatHumanoide.anm"/>
+		<extension file="AnimCommunes.anm"/>
+		<extension file="AnimSort_90.anm"/>
+
+		<extension file="AnimPosing01.anm"/>
+		<extension file="AnimPosing02.anm"/>
+		<extension file="AnimPosing03.anm"/>
+		<extension file="AnimPosing04.anm"/>
+		<extension file="AnimPosing07.anm"/>
+		<extension file="AnimPosing09.anm"/>
+
+
+		<extension file="AnimPosingAssis01.anm"/>
+		<extension file="AnimPosingAssis02.anm"/>
+		<extension file="AnimPosingAssis05.anm"/>
+		<extension file="AnimPosingAssis06.anm"/>
+		<extension file="AnimPosingAssis07.anm"/>
+		<extension file="AnimPosingAssis09.anm"/>
+		<extension file="AnimPosingAssis10.anm"/>
+		<extension file="AnimPosingAssis11.anm"/>
+
+		<extension file="AnimEmotesFemele.anm"/>
+		<extension file="AnimEmotesMercenaire.anm"/>
+
+		<extension file="AnimMetiers.anm"/>
+		<extension file="AnimMetierFemele.anm"/>
+
+	</extensions>
+</sbax>

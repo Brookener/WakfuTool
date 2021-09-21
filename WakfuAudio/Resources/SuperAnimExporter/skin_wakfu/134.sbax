@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbax version="1">
+	<metadatas/>
+	<extensions>		
+		<import file="bellaphone_male.sbax"/>		
+		<extension file="AnimSort_130.anm"/>
+
+
+	</extensions>
+</sbax>

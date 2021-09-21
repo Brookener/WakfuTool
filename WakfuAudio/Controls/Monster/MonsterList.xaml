@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="WakfuAudio.MonsterList"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WakfuAudio"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="150"/>
+        </Grid.RowDefinitions>
+        <TextBox x:Name="FilterBox" KeyUp="FilterKeyUp"/>
+
+        <TreeView Grid.Row="1" x:Name="ListTree"
+                  AllowDrop="True"
+                  MinWidth="60" Padding="0,10,10,10">
+            
+        </TreeView>
+        <Image Grid.Row="2" Stretch="Uniform"
+               x:Name="MonsterView">
+            
+        </Image>
+        <TextBlock x:Name="IdBox" Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Left">
+            
+        </TextBlock>
+    </Grid>
+</UserControl>

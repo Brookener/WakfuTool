@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbax version="1">
+	<metadatas/>
+	<export/>
+	<extensions>
+		<extension file="AnimSort_10.anm"/>
+		<extension file="AnimSort_20.anm"/>
+		<extension file="AnimSort_30.anm"/>
+		<extension file="AnimSort_40.anm"/>
+		<extension file="AnimSort_50.anm"/>
+		<extension file="AnimSort_60.anm"/>
+		<extension file="AnimSort_70.anm"/>
+		<extension file="AnimSort_90.anm"/>
+		<extension file="AnimSort_100.anm"/>
+		<extension file="AnimSort_110.anm"/>
+		<extension file="AnimSort_120.anm"/>
+		<extension file="AnimSort_130.anm"/>
+		<extension file="AnimSort_80.anm"/>
+		<import file="player.sbax"/>
+		<extension file="AnimEmotesFemele.anm"/>
+		<extension file="AnimGoule.anm"/>
+
+	</extensions>
+</sbax>

@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!-- modifiable: input path -->
+<!-- modifiable ouput path -->
+<exporter>
+	<input path="./">
+		<include name="*"/>	<!-- on exporte tous ce qui se trouve directement dans le dossier courant (**/* pour prendre en compte les sous_dossiers)-->
+		<exclude name="*skin_wakfu/*"/> <!-- on ne veut pas exporter les skin -->
+		<exclude name="*export/*"/>	<!-- on n'exporte pas ceux deja fait -->
+		<filter match="*Anim*"/> <!-- le nom des anim à exporter -->
+		<links path="D:\Dev\WakfuAudio\WakfuAudio\SuperAnimExporter\skin_wakfu/">
+			<link skin="80.swf" to="AnimAiguille"> 
+				<import skin="__aiguille.swf" name="?_Arme"/>
+			</link>
+			<link skin="80.swf" to="AnimArc"> 
+				<import skin="__arc.swf" name="?_Arme"/>
+			</link>
+			<link skin="80.swf" to="AnimBaguette"> 
+				<import skin="__baguette.swf" name="?_Arme"/>
+			</link>
+			<link skin="80.swf" to="AnimBaton1"> 
+				<import skin="__baton1.swf" name="?_Arme"/>
+			</link>
+			<link skin="80.swf" to="AnimBaton2"> 
+				<import skin="__baton2.swf" name="?_Arme"/>
+			</link>
+			<link skin="80.swf" to="AnimCarte"> 
+				<import skin="__carte.swf" name="?_Arme"/>
+			</link>
+			<link skin="80.swf" to="AnimCombat"/> 
+			<link skin="80.swf" to="AnimCommunes"/> 
+			<link skin="80.swf" to="AnimCreaPerso"/> 
+			<link skin="80.swf" to="AnimDague1"> 
+				<import skin="__dague1.swf" name="?_Arme"/>
+			</link>
+			<link skin="80.swf" to="AnimDague2"> 
+				<import skin="__dague2.swf" name="?_Arme"/>
+			</link>
+			<link skin="80.swf" to="AnimEmotes"/> 
+			<link skin="81.swf" to="AnimEmotesFemele"/> 
+			<link skin="80.swf" to="AnimEmotesMale"/> 
+			<link skin="80.swf" to="AnimEpee1"> 
+				<import skin="__epee1.swf" name="?_Arme"/>
+			</link>
+			<link skin="80.swf" to="AnimEpee2"> 
+				<import skin="__epee2.swf" name="?_Arme"/>
+			</link>
+			<link skin="1001.swf" to="AnimGoule"/> 
+			<link skin="80.swf" to="AnimHache"> 
+				<import skin="__hache.swf" name="?_Arme"/>
+			</link>
+			<link skin="80.swf" to="AnimMarteau"> 
+				<import skin="__marteau.swf" name="?_Arme"/>
+			</link>
+			<link skin="80.swf" to="AnimMetierMale"/>
+			<link skin="81.swf" to="AnimMetierFemele"/>
+			<link skin="80.swf" to="AnimMetiers"/>
+			<link skin="80.swf" to="AnimPelle"> 
+				<import skin="__pelle.swf" name="?_Arme"/>
+			</link>
+			<link skin="80.swf" to="AnimPoings"/>
+			<link skin="80.swf" to="AnimPosing01"/>
+			<link skin="80.swf" to="AnimPosing02"/>
+			<link skin="80.swf" to="AnimPosing03"/>
+			<link skin="80.swf" to="AnimPosing04"/>
+			<link skin="80.swf" to="AnimPosing05"/>
+			<link skin="80.swf" to="AnimPosing06"/>
+			<link skin="80.swf" to="AnimPosing07"/>
+			<link skin="80.swf" to="AnimPosing08"/>
+			<link skin="80.swf" to="AnimPosing09"/>
+			
+			<link skin="10.swf" to="AnimSort_10"/>
+			<link skin="20.swf" to="AnimSort_20"/>
+			<link skin="20.swf" to="AnimSort_20_Draco"/>
+			<link skin="40.swf" to="AnimSort_40"/>
+			<link skin="50.swf" to="AnimSort_50"/>
+			<link skin="60.swf" to="AnimSort_60"/>
+			<link skin="70.swf" to="AnimSort_70"/>
+			<link skin="80.swf" to="AnimSort_80"/>
+			<link skin="90.swf" to="AnimSort_90"/>
+			<link skin="110.swf" to="AnimSort_110"/>
+			<link skin="160.swf" to="AnimSort_160a"/>
+			<link skin="160.swf" to="AnimSort_160Feu"/>
+			<link skin="160.swf" to="AnimSort_160Stasis"/>
+			<link skin="160.swf" to="AnimSort_160Steamelle"/>
+			<link skin="160.swf" to="AnimSort_160Terre"/>
+		</links>
+	</input>
+
+	<output format="swf" path="./export/$file$/$anim$.swf"/>
+	<!--output format="images" path="h:/video/export/$file$/$anim$_$frame$"/>-->
+	<!--<output format="video" path="h:/video/export/$file$/$anim$.mov"/>-->
+</exporter>

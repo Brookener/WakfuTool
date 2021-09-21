@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbax version="1">
+	<metadatas/>
+	<extensions>		
+		<import file="gostof_male.sbax"/>		
+		<extension file="AnimSort_60.anm"/>
+		<extension file="AnimSort_80.anm"/>
+		<extension file="AnimPelle.anm"/>
+	</extensions>
+</sbax>

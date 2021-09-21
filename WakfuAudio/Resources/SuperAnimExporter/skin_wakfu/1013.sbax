@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbax version="1">
+	<metadatas>
+
+		<hide onEquip="Chapeau" hide="CheveuxHaut"/>
+	</metadatas>
+	<export/>
+	<extensions>
+		<extension file="AnimSort_120.anm"/>
+		<extension file="AnimIncarnam.anm"/>
+		<extension file="AnimEmotes.anm"/>
+		<extension file="AnimEmotesMale.anm"/>
+		<extension file="AnimCombat.anm"/>
+		<extension file="AnimCommunes.anm"/>	
+			
+	</extensions>
+</sbax>

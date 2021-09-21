@@ -1,0 +1,65 @@
+﻿<Window x:Class="WakfuAudio.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WakfuAudio"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800" Closed="OnClosed" Background="White">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            
+            <TabControl Margin="10">
+                <TabItem Header="Monsters">
+                    <local:MonsterList x:Name="MonsterPanel">
+
+                    </local:MonsterList>
+                </TabItem>
+
+                <TabItem Header="Player">
+                    <local:MonsterList x:Name="PlayerPanel">
+                        
+                    </local:MonsterList>
+                </TabItem>
+                <TabItem Header="Pets">
+                    <local:MonsterList x:Name="PetPanel">
+                        
+                    </local:MonsterList>
+                </TabItem>
+                
+                <TabItem Header="Settings">
+                    <local:SettingsControl>
+
+                    </local:SettingsControl>
+                </TabItem>
+
+                <TabItem Header="Scripts">
+                    <local:ScriptList>
+
+                    </local:ScriptList>
+                </TabItem>
+            </TabControl>
+            <TextBlock Grid.Row="1" x:Name="Infos" Margin="5">
+                
+            </TextBlock>
+        </Grid>
+        
+
+        <local:MonsterEdition Grid.Column="1" x:Name="Editor">
+
+        </local:MonsterEdition>
+        
+
+    </Grid>
+    
+    
+</Window>

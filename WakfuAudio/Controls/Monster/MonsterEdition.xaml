@@ -1,0 +1,165 @@
+﻿<UserControl x:Class="WakfuAudio.MonsterEdition"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WakfuAudio"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="950" Background="#FF415F68">
+    <Grid x:Name="MainGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Grid Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
+            </Grid.ColumnDefinitions>
+
+            <!-- Open Fla -->
+            <Button Width="30" Click="OpenFlaClick" Margin="5"
+                    BorderThickness="0" x:Name="FlaButton"
+                    ToolTip="Open .fla monster project. Shift+click to show .fla in explorer. Ctrl+Click to show .swf in Explorer">
+                <Button.Background>
+                    <ImageBrush ImageSource="../../Icons/FlaIcon.png" Stretch="Uniform"/>
+                </Button.Background>
+
+            </Button>
+            <!-- Family -->
+            <TextBox x:Name="FamilyLabel" Grid.Column="1" Margin="5"
+                     IsReadOnly="True" Background="{x:Null}" 
+                     BorderBrush="{x:Null}" Foreground="White" 
+                     SelectionBrush="#FF707070"
+                     BorderThickness="0" HorizontalAlignment="Center" FontSize="16">
+
+            </TextBox>
+            <!-- Monster Name -->
+            <TextBox x:Name="NameLabel" Grid.Column="2"
+                     IsReadOnly="False"  Margin="5"
+                     BorderThickness="0" 
+                      FontWeight="Bold" FontSize="18" 
+                      KeyUp="NameBoxKeyUp" Background="#FF415F68" Foreground="White" HorizontalAlignment="Center" MinWidth="100">
+            </TextBox>
+            <!-- Monster Id -->
+            <TextBox x:Name="IdLabel" Grid.Column="3" Margin="5"
+                     IsReadOnly="True" Background="{x:Null}" 
+                     BorderBrush="{x:Null}" Foreground="White" 
+                     SelectionBrush="#FF707070"
+                     BorderThickness="0" HorizontalAlignment="Center" FontSize="16">
+
+            </TextBox>
+            <!-- Save -->
+            <Button Margin="0,0,15,0" BorderThickness="0" Width="40"
+                    Click="SaveClick"  Grid.Column="4"
+                    Foreground="White" x:Name="SaveButton"
+                    ToolTip="Update SWF file">
+                <Button.Background>
+                    <ImageBrush ImageSource="../../Icons/DlIcon.png" Stretch="Uniform"/>
+                </Button.Background>
+
+            </Button>
+            <!-- Refresh -->
+            <Button x:Name="RefreshButton" Width="30" 
+                    Grid.Column="5"
+                    ToolTip="Refresh Monster" 
+                    Click="RefreshClick"
+                    BorderThickness="0" Margin="5">
+                <Button.Background>
+                    <ImageBrush ImageSource="../../Icons/revertIcon.png" Stretch="Uniform"/>
+                </Button.Background>
+
+            </Button>
+        </Grid>
+
+        <!-- Monster -->
+        <Grid Grid.Row="2">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="950"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Anim Bin -->
+            <Grid Grid.Column="1" x:Name="AnimGrid">
+                <Grid Background="#A5000000" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Header -->
+                    <Grid Background="#CC000000" Margin="0,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontSize="16">
+                        Animations
+                        </TextBlock>
+                        <Button Margin="2" Width="30"
+                                BorderThickness="0" 
+                                Click="CopyAnimsClick" 
+                                Foreground="White"
+                                HorizontalAlignment="Right"
+                                x:Name="CopyAnimsButton"
+                                ToolTip="Copy .swf anims files. Shift+Click to open folder.">
+                            <Button.Background>
+                                <ImageBrush ImageSource="../../Icons/CopyIcon.png" Stretch="Uniform"/>
+                            </Button.Background>
+
+                        </Button>
+                        <TextBlock Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontSize="16">
+                        Sounds
+                        </TextBlock>
+                        <TextBlock Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontSize="16">
+                        Barks
+                        </TextBlock>
+                        <TextBlock Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontSize="16">
+                        Aps
+                        </TextBlock>
+                    </Grid>
+
+                    <!-- Anim List-->
+                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto"
+                              BorderThickness="0">
+                        <StackPanel x:Name ="AnimBin"  
+                     Background="{x:Null}" 
+                     >
+                        </StackPanel>
+                    </ScrollViewer>
+
+                    <!-- Script Edition -->
+                    <local:ScriptEdition x:Name="ScriptEdition" Grid.Row="3" 
+                                  BorderThickness="5" BorderBrush="#99FFFFFF"
+                                  Padding="5">
+
+                    </local:ScriptEdition>
+                </Grid>
+            </Grid>
+
+            <!-- Player 
+            <local:SwfPlayer Grid.Column="2" x:Name="Player">
+
+            </local:SwfPlayer>-->
+
+
+        </Grid>
+
+    </Grid>
+</UserControl>
