@@ -37,7 +37,7 @@
                  x:Name="AssetBox" KeyUp="AssetBoxKeyUp" 
                  Background="#FF1D373E" BorderThickness="0" 
                  Foreground="White" SelectionBrush="#FF74BFB5" 
-                 SelectionTextBrush="#FF3E3E3E" VerticalAlignment="Center" FontSize="14">
+                 VerticalAlignment="Center" FontSize="14">
 
         </TextBox>
         <!-- Volume -->
@@ -45,7 +45,7 @@
                  KeyUp="VolumeBoxKeyUp"
                  Background="#FF2C4A53" BorderThickness="0" 
                  Foreground="White" SelectionBrush="#FF74BFB5" 
-                 SelectionTextBrush="#FF3E3E3E" Margin="5,0" VerticalAlignment="Center" FontSize="14">
+                 Margin="5,0" VerticalAlignment="Center" FontSize="14">
 
         </TextBox>
         <!-- Remove -->
