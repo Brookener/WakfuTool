@@ -164,7 +164,7 @@ namespace WakfuAudio.Scripts.Classes
             if (type == ScriptType.aps)
                 return apsScript.Replace("ASSETS", AssetChain()).Replace("GAIN", VolumeChain()).Replace("ROLLOFF", rolloff.ToString()).Replace("STOP", stop.ToString());
             else
-                return animScript.Replace("ASSETS", AssetVolumeChain()).Replace("ROLLOFF", rolloff.ToString()).Replace("STOP", stop.ToString());
+                return animScript.Replace("ASSETS", AssetVolumeChain()).Replace("ROLLOFF", rolloff.ToString()).Replace("STOP", stop ? "true" : "false");
         }
 
 
