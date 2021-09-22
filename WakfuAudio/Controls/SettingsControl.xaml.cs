@@ -45,6 +45,7 @@ namespace WakfuAudio
             {
                 Database.parameters.svnFolder = path;
                 Database.SaveParameters();
+                Database.LoadDatas();
             }
         }
         private void SetSvnFolderClick(object sender, RoutedEventArgs e)
@@ -55,6 +56,7 @@ namespace WakfuAudio
             {
                 Database.parameters.svnFolder = dialog.SelectedPath;
                 Database.SaveParameters();
+                Database.LoadDatas();
                 Setup();
             }
         }

@@ -56,6 +56,8 @@ namespace WakfuAudio.Scripts.Classes
         public static bool saving = false;
         public static async void SaveDatas()
         {
+            if (!File.Exists(DataFilePath()))
+                return;
             if(!saving)
             {
                 saving = true;
@@ -510,7 +512,12 @@ namespace WakfuAudio.Scripts.Classes
         {
             return IsScriptUsed(id, out LuaScript script);
         }
-
+        public static void AskScriptDeletion(string scriptId)
+        {
+            if (!IsScriptUsed(scriptId, out LuaScript script))
+                if (MessageBox.Show("Removed Script is not used anywhere.\nDelete script file ?", "Question", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                    script.DeleteScript();
+        }
         #endregion
 
         #region utils

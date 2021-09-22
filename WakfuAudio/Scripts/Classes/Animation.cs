@@ -83,6 +83,7 @@ namespace WakfuAudio.Scripts.Classes
                     barks.Remove(script);
                     break;
             }
+            Database.AskScriptDeletion(script);
         }
         public void Replace(string oldScript, string newScript, ScriptType sType)
         {

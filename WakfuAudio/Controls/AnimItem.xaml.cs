@@ -75,13 +75,6 @@ namespace WakfuAudio
         {
             var item = (sender as ScriptItem);
             animation.Remove(item.script, item.type);
-            if(!Database.IsScriptUsed(item.script, out LuaScript script))
-            {
-                if(MessageBox.Show("Removed Script is not used anywhere.\nDelete script file ?", "Question", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-                {
-                    script.DeleteScript();
-                }
-            }
             LoadScripts();
             ScriptRemoved(this, e);
             Database.SaveDatas();
