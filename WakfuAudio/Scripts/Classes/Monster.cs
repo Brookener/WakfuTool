@@ -224,7 +224,7 @@ namespace WakfuAudio.Scripts.Classes
         }
         public string AnimatePath()
         {
-            return Database.AnimSourcesFolder() + "\\" + type + "\\" + Family + "\\" + Id + ".fla";
+            return Database.AnimSourcesFolder() + "\\" + type + "\\" + Family.Replace("_","\\") + "\\" + Id + ".fla";
         }
         public void OpenAnimateFile()
         {
