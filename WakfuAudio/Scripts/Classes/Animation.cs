@@ -68,10 +68,12 @@ namespace WakfuAudio.Scripts.Classes
             if (aps.Count == 0)
                 return null;
 
-            var value = Int64.Parse(aps.Last().Key);
-            value += value >= 0 ? 1 : -1;
+            long value = Int64.Parse(aps.Last().Key);
+            string model = value.ToString();
+            while(aps.ContainsKey(value.ToString()))
+                value += value >= 0 ? 1 : -1;
             var lua = AddApsScript(value.ToString());
-            lua.integrations = Database.GetOrCreate(aps.Last().Key).CopyIntegrations(lua);
+            lua.integrations = Database.GetOrCreate(model).CopyIntegrations(lua);
             lua.SaveScript();
             return lua;
         }
