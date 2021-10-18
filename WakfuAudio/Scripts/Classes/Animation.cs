@@ -41,7 +41,7 @@ namespace WakfuAudio.Scripts.Classes
         {
             var script = monster.FirstScriptId(bark);
             (bark ? barks : sounds).Add(script, new List<int>() { 1 });
-            var lua = Database.CreateScript(bark ? ScriptType.mobBark : ScriptType.mobAnim, script);
+            var lua = Database.GetOrCreate(bark ? ScriptType.mobBark : ScriptType.mobAnim, script);
             var inte = new Integration(lua, bark ? monster.FirstBarkAsset() : monster.FirstSoundAsset(type));
             lua.integrations.Add(inte);
             lua.SaveScript();
@@ -49,7 +49,7 @@ namespace WakfuAudio.Scripts.Classes
         }
         public LuaScript AddApsScript(string apsId)
         {
-            var lua = Database.CreateScript(ScriptType.aps, apsId);
+            var lua = Database.GetOrCreate(ScriptType.aps, apsId);
             var inte = new Integration(lua, lua.FirstApsAsset("410"));
             lua.integrations.Add(inte);
             lua.rolloff = 5;

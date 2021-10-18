@@ -33,6 +33,7 @@ namespace WakfuAudio.Scripts.Classes
         }
         public static void LoadDatas()
         {
+
             if (File.Exists(DataFilePath()))
             {
                 Stream file = File.Open(DataFilePath(), FileMode.Open);
@@ -42,34 +43,30 @@ namespace WakfuAudio.Scripts.Classes
                 {
                     datas = (DatabaseSave)bf.Deserialize(file);
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
                     datas = new DatabaseSave();
+                    MessageBox.Show(e.Message);
+
                 }
                 file.Close();
             }
             else
-            {
                 datas = new DatabaseSave();
-            }
         }
         public static bool saving = false;
         public static async void SaveDatas()
         {
             if (!File.Exists(DataFilePath()))
                 return;
-            if(!saving)
-            {
-                saving = true;
-                Stream file = null;
-                MainWindow.SetInfos("Saving Datas");
-                file = File.Open(DataFilePath(), FileMode.OpenOrCreate);
-                BinaryFormatter bf = new BinaryFormatter();
-                await new Task(delegate { bf.Serialize(file, datas); });
-                file.Close();
-                MainWindow.SetInfos("");
-                saving = false;
-            }
+
+            Stream file = null;
+            MainWindow.SetInfos("Saving Datas");
+            file = File.Open(DataFilePath(), FileMode.OpenOrCreate);
+            BinaryFormatter bf = new BinaryFormatter();
+            bf.Serialize(file, datas);
+            file.Close();
+            MainWindow.SetInfos("");
         }
         public static void SetAllLuaScriptsFromFiles()
         {
@@ -484,6 +481,13 @@ namespace WakfuAudio.Scripts.Classes
                 return datas.scripts[id];
             else
                 return new LuaScript(FullPathOfAnmScript(id));
+        }
+        public static LuaScript GetOrCreate(ScriptType type, string id)
+        {
+            if (datas.scripts.ContainsKey(id))
+                return datas.scripts[id];
+            else
+                return new LuaScript(type, id);
         }
         public static LuaScript CreateScript(ScriptType type, string id)
         {
