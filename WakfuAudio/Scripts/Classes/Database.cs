@@ -23,6 +23,7 @@ namespace WakfuAudio.Scripts.Classes
         {
             LoadParameters();
             LoadDatas();
+            LoadNames();
             //allApsIds = AllApsScriptId();
         }
 
@@ -372,10 +373,28 @@ namespace WakfuAudio.Scripts.Classes
         public static DirectoryInfo[] AllPlayerGroupAnimFolders()
         {
             return GetFoldersAtPath(PlayerAnimSourcesFolder());
-        } 
+        }
 
         #endregion
 
+        #region Monster Names
+
+        public static Dictionary<int, string> monsterNames = new Dictionary<int, string>();
+        public static void LoadNames()
+        {
+            monsterNames = Psql.GetMonsterNames();
+        }
+        public static string NameOf(string id)
+        {
+            if (id.Length > 4 && Int32.TryParse(id.Substring(id.Length - 4), out int monsterId) && monsterNames.ContainsKey(monsterId))
+                return monsterNames[monsterId];
+            else
+                return "";
+
+        }
+
+
+        #endregion
 
         #region Values 
 

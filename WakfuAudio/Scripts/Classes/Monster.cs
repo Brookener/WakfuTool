@@ -39,6 +39,10 @@ namespace WakfuAudio.Scripts.Classes
             lastSwfModification = File.GetLastWriteTime(SwfPath());
             Database.SaveDatas();
         }
+        public string FullName()
+        {
+            return Id + (Name == "" ? "" : ("_" + Name));
+        }
         public async Task SaveSwf()
         {
             await SaveSwf(new SwfDecompiler(SwfPath()));
@@ -299,8 +303,8 @@ namespace WakfuAudio.Scripts.Classes
         [Serializable]
         public struct Datas
         {
+            public int id;
             public string name;
-
         }
 
         public enum Type { npcs, players, pets}

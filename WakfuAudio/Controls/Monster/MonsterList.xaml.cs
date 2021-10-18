@@ -43,9 +43,9 @@ namespace WakfuAudio
             update.Click += new RoutedEventHandler(CheckForMonstersToUpdate);
             ContextMenu.Items.Add(update);
 
-            var names = new MenuItem() { Header = "Load Names", ToolTip = "Load monster names from CSV file. Format : monster_gfx_id, monster_admin_name" };
-            names.Click += new RoutedEventHandler(LoadMonsterNamesClick);
-            ContextMenu.Items.Add(names);
+            //var names = new MenuItem() { Header = "Load Names", ToolTip = "Load monster names from CSV file. Format : monster_gfx_id, monster_admin_name" };
+            //names.Click += new RoutedEventHandler(LoadMonsterNamesClick);
+            //ContextMenu.Items.Add(names);
 
             var global = new MenuItem() { Header = "Load all from Swf files" };
             global.Click += new RoutedEventHandler(StartGlobalLoading);
@@ -86,9 +86,11 @@ namespace WakfuAudio
                     var id = swf.Name.Substring(0, swf.Name.Length - 4);
                     if (!exports.ContainsKey(id)) continue;
                     var monster = Database.datas.monsters.ContainsKey(id) ? Database.datas.monsters[id] : new Monster(id, groupName, type);
+                    if(monster.Name == "")
+                        monster.Name = Database.NameOf(id);
                     var item = new TreeViewItem()
                     {
-                        Header = id,
+                        Header = monster.FullName(),
                         Tag = monster,
                     };
                     item.Selected += new RoutedEventHandler(ItemSelected);
