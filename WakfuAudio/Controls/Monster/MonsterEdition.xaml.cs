@@ -234,7 +234,7 @@ namespace WakfuAudio
                 animSelected.name.Substring(animSelected.splited ? 2 : 0),
         
             };
-            Clipboard.SetText(String.Join("_", name));
+            Clipboard.SetText(String.Join("_", name.Where(x => x != "")));
         }
 
 

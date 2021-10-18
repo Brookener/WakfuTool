@@ -52,6 +52,7 @@ namespace WakfuAudio.Scripts.Classes
             var lua = Database.CreateScript(ScriptType.aps, apsId);
             var inte = new Integration(lua, lua.FirstApsAsset("410"));
             lua.integrations.Add(inte);
+            lua.rolloff = 5;
             lua.SaveScript();
             aps.Add(apsId, new List<int>() { 1 });
             return lua;

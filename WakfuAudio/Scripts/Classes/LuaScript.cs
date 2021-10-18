@@ -15,7 +15,7 @@ namespace WakfuAudio.Scripts.Classes
     {
         public string id;
         public ScriptType type;
-        public int rolloff;
+        public int rolloff = 5;
         public bool stop;
         public List<Integration> integrations = new List<Integration>();
         public string description = "";
@@ -162,7 +162,7 @@ namespace WakfuAudio.Scripts.Classes
         public string GetAnimScript()
         {
             if (type == ScriptType.aps)
-                return apsScript.Replace("ASSETS", AssetChain()).Replace("GAIN", VolumeChain()).Replace("ROLLOFF", rolloff.ToString()).Replace("STOP", stop.ToString());
+                return apsScript.Replace("ASSETS", AssetChain()).Replace("GAIN", VolumeChain()).Replace("ROLLOFF", rolloff.ToString()).Replace("STOP", stop ? "true" : "false");
             else
                 return animScript.Replace("ASSETS", AssetVolumeChain()).Replace("ROLLOFF", rolloff.ToString()).Replace("STOP", stop ? "true" : "false");
         }

@@ -120,6 +120,7 @@ namespace WakfuAudio
         private void StopClicked(object sender, RoutedEventArgs e)
         {
             script.stop = (bool)StopBox.IsChecked;
+            script.SaveScript();
         }
         private void RolloffBoxKeyDown(object sender, KeyEventArgs e)
         {
@@ -127,6 +128,7 @@ namespace WakfuAudio
                 if (script.SetRolloff((sender as TextBox).Text))
                 {
                     RolloffBox.Background = Constantes.White;
+                    script.SaveScript();
                     Database.SaveDatas();
                 }
                 else
