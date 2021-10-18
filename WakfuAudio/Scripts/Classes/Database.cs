@@ -475,19 +475,41 @@ namespace WakfuAudio.Scripts.Classes
 
         #region Script Management
 
-        public static LuaScript GetOrCreate(string id)
+        public static bool GetOrCreate(string id, out LuaScript script)
         {
             if (datas.scripts.ContainsKey(id))
-                return datas.scripts[id];
+            {
+                script = datas.scripts[id];
+                return true;
+            }
             else
-                return new LuaScript(FullPathOfAnmScript(id));
+            {
+                script = new LuaScript(FullPathOfAnmScript(id));
+                return false;
+            }
+        }
+        public static bool GetOrCreate(ScriptType type, string id, out LuaScript script)
+        {
+            if (datas.scripts.ContainsKey(id))
+            {
+                script = datas.scripts[id];
+                return true;
+            }
+            else
+            {
+                script = new LuaScript(type, id);
+                return false;
+            }
+        }
+        public static LuaScript GetOrCreate(string id)
+        {
+            GetOrCreate(id, out LuaScript script);
+            return script;
         }
         public static LuaScript GetOrCreate(ScriptType type, string id)
         {
-            if (datas.scripts.ContainsKey(id))
-                return datas.scripts[id];
-            else
-                return new LuaScript(type, id);
+            GetOrCreate(type, id, out LuaScript script);
+            return script;
         }
         public static LuaScript CreateScript(ScriptType type, string id)
         {

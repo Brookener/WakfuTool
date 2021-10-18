@@ -41,19 +41,25 @@ namespace WakfuAudio.Scripts.Classes
         {
             var script = monster.FirstScriptId(bark);
             (bark ? barks : sounds).Add(script, new List<int>() { 1 });
-            var lua = Database.GetOrCreate(bark ? ScriptType.mobBark : ScriptType.mobAnim, script);
-            var inte = new Integration(lua, bark ? monster.FirstBarkAsset() : monster.FirstSoundAsset(type));
-            lua.integrations.Add(inte);
-            lua.SaveScript();
+            if(!Database.GetOrCreate(bark ? ScriptType.mobBark : ScriptType.mobAnim, script, out LuaScript lua))
+            {
+                var inte = new Integration(lua, bark ? monster.FirstBarkAsset() : monster.FirstSoundAsset(type));
+                lua.integrations.Add(inte);
+                lua.SaveScript();
+            }
+
             return lua;
         }
         public LuaScript AddApsScript(string apsId)
         {
-            var lua = Database.GetOrCreate(ScriptType.aps, apsId);
-            var inte = new Integration(lua, lua.FirstApsAsset("410"));
-            lua.integrations.Add(inte);
-            lua.rolloff = 5;
-            lua.SaveScript();
+            if(!Database.GetOrCreate(ScriptType.aps, apsId, out LuaScript lua))
+            {
+                var inte = new Integration(lua, lua.FirstApsAsset("410"));
+                lua.integrations.Add(inte);
+                lua.rolloff = 5;
+                lua.SaveScript();
+            }
+            
             aps.Add(apsId, new List<int>() { 1 });
             return lua;
         }
@@ -63,12 +69,9 @@ namespace WakfuAudio.Scripts.Classes
                 return null;
 
             var value = Int64.Parse(aps.Last().Key);
-            value += value >= 0 ? 1 : -1;
-            var lua = Database.CreateScript(ScriptType.aps, value.ToString());
-            lua.integrations = Database.GetOrCreate(aps.Last().Key).CopyIntegrations(lua);
-            lua.SaveScript();
-            aps.Add(value.ToString(), new List<int>() { 1 });
-            return lua;
+            while(aps.ContainsKey(value.ToString()))
+                value += value >= 0 ? 1 : -1;
+            return AddApsScript(value.ToString());
         }
         public void Remove(string script, ScriptType sType)
         {
