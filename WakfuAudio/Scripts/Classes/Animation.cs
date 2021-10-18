@@ -69,9 +69,11 @@ namespace WakfuAudio.Scripts.Classes
                 return null;
 
             var value = Int64.Parse(aps.Last().Key);
-            while(aps.ContainsKey(value.ToString()))
-                value += value >= 0 ? 1 : -1;
-            return AddApsScript(value.ToString());
+            value += value >= 0 ? 1 : -1;
+            var lua = AddApsScript(value.ToString());
+            lua.integrations = Database.GetOrCreate(aps.Last().Key).CopyIntegrations(lua);
+            lua.SaveScript();
+            return lua;
         }
         public void Remove(string script, ScriptType sType)
         {
