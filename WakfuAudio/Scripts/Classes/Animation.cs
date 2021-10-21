@@ -123,21 +123,14 @@ namespace WakfuAudio.Scripts.Classes
             aps.Keys.ToList().ForEach(x => dic.Add(Database.GetOrCreate(x), null));
             return dic;
         }
-        public SortedDictionary<int, List<string>> GetAllScriptByFrame()
+        public SortedDictionary<int, List<string>> GetSoundsAndBarksScriptByFrame()
         {
-            var dic = GetScriptByFrame(true);
-            foreach(KeyValuePair<int, List<string>> scripts in GetScriptByFrame(false))
-            {
-                if (!dic.ContainsKey(scripts.Key))
-                    dic.Add(scripts.Key, new List<string>());
-                dic[scripts.Key].AddRange(scripts.Value);
-            }
-            return dic;
+            return GetScriptByFrame(new SortedDictionary<string, List<int>>[] { sounds, barks });
         }
-        public SortedDictionary<int, List<string>> GetScriptByFrame(bool bark)
+        public SortedDictionary<int, List<string>> GetScriptByFrame(SortedDictionary<string, List<int>>[] dics)
         {
             var list = new SortedDictionary<int, List<string>>();
-            var dic = bark ? barks : sounds;
+            foreach(SortedDictionary<string, List<int>> dic in dics)
             foreach(KeyValuePair<string, List<int>> sound in dic)
             {
                 foreach(int frame in sound.Value)
@@ -155,6 +148,24 @@ namespace WakfuAudio.Scripts.Classes
 
         #region Utils
         
+        public async Task PlayAudio()
+        {
+            var list = new Dictionary<int, List<LuaScript>>();
+
+            foreach(KeyValuePair<int, List<string>> frame in GetScriptByFrame(new SortedDictionary<string, List<int>>[] {sounds, barks, aps }))
+            {
+                if (!list.ContainsKey(frame.Key))
+                    list.Add(frame.Key, new List<LuaScript>());
+                list[frame.Key].AddRange(frame.Value.Select(x => Database.GetOrCreate(x)));
+            }
+
+            foreach(KeyValuePair<int, List<LuaScript>> frame in list)
+            {
+                frame.Value.ForEach(x => x.PlayAudio());
+                await Task.Delay(40);
+            }
+
+        }
         public string SplitedName()
         {
             return angles[0] + "_" + name;

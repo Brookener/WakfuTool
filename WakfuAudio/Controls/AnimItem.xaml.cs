@@ -85,8 +85,10 @@ namespace WakfuAudio
         }
         private void AnimClick(object sender, RoutedEventArgs e)
         {
-            //Selected(this, e);
-            MonsterEdition.PlaySwf(SuperAnimExporter.ExportPath() + '\\' + animation.monster.Id + '\\' + animation.SplitedName() + ".swf");
+            if (Keyboard.IsKeyDown(Key.LeftShift))
+                animation.PlayAudio();
+            else
+                MonsterEdition.PlaySwf(SuperAnimExporter.ExportPath() + '\\' + animation.monster.Id + '\\' + animation.SplitedName() + ".swf");
         }
         private void AddScriptClick(object sender, RoutedEventArgs e)
         {

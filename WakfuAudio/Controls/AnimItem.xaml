@@ -50,7 +50,8 @@
                      Background="{x:Null}" 
                      BorderBrush="{x:Null}" BorderThickness="0" 
                      Margin="0,3" FontSize="16" 
-                     Click="AnimClick"/>
+                     Click="AnimClick"
+                     ToolTip="Click to show animation. Shift+click to play sound of animation"/>
             <ComboBox Grid.Column="2" Width="0" BorderThickness="0"
                       x:Name="AngleBoxes">
                 <ComboBoxItem>

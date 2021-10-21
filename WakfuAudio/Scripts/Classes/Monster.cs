@@ -53,7 +53,7 @@ namespace WakfuAudio.Scripts.Classes
             await Task.Delay(10);
             foreach (Animation anim in animations.Values)
                 foreach (char angle in anim.angles)
-                    decompiler.WriteAudioScriptsOfAnim(angle + "_" + anim.name, anim.GetAllScriptByFrame());
+                    decompiler.WriteAudioScriptsOfAnim(angle + "_" + anim.name, anim.GetSoundsAndBarksScriptByFrame());
 
             await Task.Run(() => decompiler.WriteSwf());
             MakeUpToDate();
@@ -241,23 +241,11 @@ namespace WakfuAudio.Scripts.Classes
         }
         public void ShowAnimateFileInExplorer()
         {
-            if (File.Exists(AnimatePath()))
-            {
-                var info = new ProcessStartInfo("explorer.exe", "/select,\"" + AnimatePath() + "\"");
-                Process.Start(info);
-            }
-            else
-                MessageBox.Show("Can't find .fla file :\n" + AnimatePath());
+            MainWindow.ShowFileInExplorer(AnimatePath());
         }
         public void ShowSwfFileInExplorer()
         {
-            if (File.Exists(SwfPath()))
-            {
-                var info = new ProcessStartInfo("explorer.exe", "/select,\"" + SwfPath() + "\"");
-                Process.Start(info);
-            }
-            else
-                MessageBox.Show("Can't find .swf file :\n" + SwfPath());
+            MainWindow.ShowFileInExplorer(SwfPath());
         }
         public System.Windows.Media.ImageSource GetImage()
         {

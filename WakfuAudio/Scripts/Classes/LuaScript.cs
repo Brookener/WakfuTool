@@ -231,9 +231,9 @@ namespace WakfuAudio.Scripts.Classes
                         list.Add(anim);
             return list;
         }
-        public List<Monster> MonstersUsing()
+        public IEnumerable<Monster> MonstersUsing()
         {
-            return AnimsUsing().Select(x => x.monster).ToList();
+            return AnimsUsing().Select(x => x.monster).Distinct();
         }
         public bool SearchFilter(string patern)
         {
@@ -274,7 +274,11 @@ namespace WakfuAudio.Scripts.Classes
         {
             return MissingAssets().Count > 0;
         }
-
+        public void PlayAudio()
+        {
+            var inte = integrations[new Random().Next(integrations.Count - 1)];
+            inte.PlayAssetSource();
+        }
         
         public static ScriptType DetectScriptTypeFromId(string id)
         {

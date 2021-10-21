@@ -19,7 +19,7 @@
         </Grid.ColumnDefinitions>
 
         <!-- Play Asset -->
-        <Button Click="PlayAssetClick" Width="25" BorderThickness="0">
+        <Button Click="PlayAssetClick" Width="25" BorderThickness="0" ToolTip="Click to play the file. Shift+Click to show in explorer">
             <Button.Background>
                 <ImageBrush ImageSource="../Icons/volume.png" Stretch="Uniform"/>
             </Button.Background>

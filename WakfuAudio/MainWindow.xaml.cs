@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -50,6 +51,16 @@ namespace WakfuAudio
             ScriptPanel.SelectionChanged += new EventHandler(ScriptPanelSelectionChanged);
 
             Database.CheckIfMonstersAreUpToDate();
+        }
+        public static void ShowFileInExplorer(string file)
+        {
+            if (File.Exists(file))
+            {
+                var info = new ProcessStartInfo("explorer.exe", "/select,\"" + file + "\"");
+                Process.Start(info);
+            }
+            else
+                MessageBox.Show("Can't find .fla file :\n" + file);
         }
 
         

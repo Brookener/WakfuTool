@@ -82,12 +82,22 @@ namespace WakfuAudio.Scripts.Classes
         {
             return File.Exists(AssetFile());
         }
-        public void PlayAsset()
+        public string[] AssetSources()
         {
-            if (AssetExists())
-                AudioPlayer.PlayAudio(AssetFile(), 1);
-            else
-                MessageBox.Show("Can't find file : \n" + AssetFile());
+            return Directory.GetFiles(Database.SourcesFolder(), asset + "*", SearchOption.AllDirectories);
+        }
+        public string FirstAssetSource()
+        {
+            var sources = AssetSources();
+            return sources.Length > 0 ? sources[0] : "";
+        }
+        public void PlayAssetSource(double vol)
+        {
+            AudioPlayer.PlayAudio(FirstAssetSource(), vol);
+        }
+        public void PlayAssetSource()
+        {
+            PlayAssetSource(volume);
         }
 
         #endregion
