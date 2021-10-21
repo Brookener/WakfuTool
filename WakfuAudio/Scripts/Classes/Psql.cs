@@ -13,7 +13,7 @@ namespace WakfuAudio.Scripts.Classes
 
         private static string ConnectionPath(string host, string user, string password, string baseName)
         {
-            return "Host=" + host + ";Username=" + user + ";Password=" + password + ";Database=" + baseName + ";";// ";Options='standard_conforming_strings=on'";
+            return "Host=" + host + ";Username=" + user + ";Password=" + password + ";Database=" + baseName + ";";
         }
         private static string WakfuConnection = ConnectionPath("opiate.ankama.lan", "wakfu", "wakfu", "wakfu");
         public const string MonsterTable = "tbl_static_monster_characteristics";
@@ -29,7 +29,6 @@ namespace WakfuAudio.Scripts.Classes
             catch(Exception e)
             {
                 MessageBox.Show("Impossible to connect to the server\n" + e.Message);
-                throw;
                 return false;
             }
             return true;

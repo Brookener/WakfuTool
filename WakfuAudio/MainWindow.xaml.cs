@@ -47,6 +47,8 @@ namespace WakfuAudio
             PetPanel.MonsterSelection += new RoutedEventHandler(MonsterItemSelected);
             Editor.MonsterLoaded += new RoutedEventHandler(MonsterLoaded);
             Editor.MonsterRenamed += new RoutedEventHandler(MonsterRenamed);
+            ScriptPanel.SelectionChanged += new EventHandler(ScriptPanelSelectionChanged);
+
             Database.CheckIfMonstersAreUpToDate();
         }
 
@@ -69,6 +71,12 @@ namespace WakfuAudio
         private void MonsterRenamed(object sender, RoutedEventArgs e)
         {
             //MonsterPanel.SetMonsterItemHeader(sender as Monster);
+        }
+        private void ScriptPanelSelectionChanged(object sender, EventArgs e)
+        {
+            var list = sender as List<LuaScript>;
+            if (list.Count > 0)
+                Editor.ScriptEdition.Update(list[0]);
         }
 
         #endregion

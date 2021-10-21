@@ -21,23 +21,38 @@ namespace WakfuAudio
     /// </summary>
     public partial class ScriptList : UserControl
     {
+        public EventHandler SelectionChanged;
+
         private List<LuaDataGridItem> items = new List<LuaDataGridItem>();
 
 
         public ScriptList()
         {
             InitializeComponent();
+            SetupCartegpryFilter();
+        }
+        private void SetupCartegpryFilter()
+        {
+            var list = Enum.GetNames(typeof(ScriptType)).ToList();
+            list.Insert(0, "All");
+            CategoryFilter.ItemsSource = list;
+            CategoryFilter.SelectedIndex = 0;
         }
 
+        public void LoadList()
+        {
+            LoadList(SearchPatern.Text);
+        }
         public async Task LoadList(string filter)
         {
             items.Clear();
             foreach (KeyValuePair<string, LuaScript> file in Database.datas.scripts)
             {
-                if (file.Value.SearchFilter(filter))
+                if (file.Value.SearchFilter(filter) && (CategoryFilter.SelectedIndex == 0 || CategoryFilter.SelectedValue.ToString() == file.Value.type.ToString()))
                 {
                     var item = new LuaDataGridItem(file.Value);
                     items.Add(item);
+                    await Task.Delay(1);
                 }
             }
 
@@ -59,7 +74,18 @@ namespace WakfuAudio
             Database.LoadAllScriptsFromFolder();
         }
 
+        private void PanelSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var list = new List<LuaScript>();
+            foreach(var o in ScriptPanel.SelectedItems)
+                list.Add((o as LuaDataGridItem).script);
+            SelectionChanged(list, e);
+        }
 
+        private void CategoryFilterDropdownClosed(object sender, EventArgs e)
+        {
+            LoadList();
+        }
     }
 
     public class LuaDataGridItem
@@ -82,7 +108,7 @@ namespace WakfuAudio
         {
             Id = script.id;
             Type = script.type;
-            Usage = String.Join(", ", script.MonstersUsing().Select(x => x.Id));
+            Usage = String.Join("\n", script.MonstersUsing().Select(x => x.Id));
         }
     }
 }

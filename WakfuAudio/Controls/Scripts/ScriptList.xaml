@@ -12,14 +12,24 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <TextBox x:Name="SearchPatern" KeyUp="SearchBoxKeyUp"/>
-        <TextBlock Grid.Row="1" x:Name="ResultBox"
-                   Foreground="White" Background="#FF444444">
-            
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBox x:Name="SearchPatern" KeyUp="SearchBoxKeyUp"/>
+            <ComboBox Grid.Column="1" x:Name="CategoryFilter" DropDownClosed="CategoryFilterDropdownClosed">
+                
+            </ComboBox>
+        </Grid>
+        <TextBlock Grid.Row="1"  x:Name="ResultBox"
+               Foreground="White" Background="#FF444444">
+
         </TextBlock>
+        
         <DataGrid x:Name="ScriptPanel" AutoGenerateColumns="False" 
-                  VerticalScrollBarVisibility="Auto" SelectionMode="Single"
-                  Grid.Row="2" IsReadOnly="false" KeyUp="ListKeyUp">
+                  VerticalScrollBarVisibility="Auto" SelectionMode="Extended"
+                  Grid.Row="2" IsReadOnly="true" KeyUp="ListKeyUp" SelectionChanged="PanelSelectionChanged">
 
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Id" Binding="{Binding Id}" />

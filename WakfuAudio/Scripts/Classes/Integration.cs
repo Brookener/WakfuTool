@@ -86,6 +86,8 @@ namespace WakfuAudio.Scripts.Classes
         {
             if (AssetExists())
                 AudioPlayer.PlayAudio(AssetFile(), 1);
+            else
+                MessageBox.Show("Can't find file : \n" + AssetFile());
         }
 
         #endregion
