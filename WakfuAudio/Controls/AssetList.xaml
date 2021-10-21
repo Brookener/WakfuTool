@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="WakfuAudio.ScriptList"
+﻿<UserControl x:Class="WakfuAudio.AssetList"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -19,30 +19,32 @@
             </Grid.ColumnDefinitions>
             <TextBox x:Name="SearchPatern" KeyUp="SearchBoxKeyUp"/>
             <ComboBox Grid.Column="1" x:Name="CategoryFilter" DropDownClosed="CategoryFilterDropdownClosed">
-                
+
             </ComboBox>
         </Grid>
         <TextBlock Grid.Row="1"  x:Name="ResultBox"
                Foreground="White" Background="#FF444444">
 
         </TextBlock>
-        
-        <DataGrid x:Name="ScriptPanel" AutoGenerateColumns="False" 
+
+        <DataGrid x:Name="AssetPanel" AutoGenerateColumns="False" 
                   VerticalScrollBarVisibility="Auto" SelectionMode="Extended"
-                  Grid.Row="2" IsReadOnly="true" KeyUp="ListKeyUp" SelectionChanged="PanelSelectionChanged">
+                  Grid.Row="2" IsReadOnly="true" KeyUp="ListKeyUp">
 
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Id" Binding="{Binding Id}" />
-                <DataGridTextColumn Header="Type" Binding="{Binding Type}"/>
-                <DataGridTextColumn Header="Used in Monsters" Binding="{Binding Usage}" MaxWidth="150"/>
+                <DataGridTextColumn Header="Id" Binding="{Binding Asset}" />
+                <DataGridTextColumn Header="Used in Script" Binding="{Binding Usage}"/>
+                <DataGridCheckBoxColumn Header="InGame" Binding="{Binding AssetInGame}" MaxWidth="150"/>
+                <DataGridTextColumn Header="Sources count" Binding="{Binding SourcesCount}" MaxWidth="150"/>
                 <DataGridTextColumn Header="Modification" Binding="{Binding Modification}" MaxWidth="150"/>
+                
             </DataGrid.Columns>
 
             <DataGrid.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="Load Scripts datas from folder content"
                               Click="LoadScriptFromFolder">
-                        
+
                     </MenuItem>
                 </ContextMenu>
             </DataGrid.ContextMenu>

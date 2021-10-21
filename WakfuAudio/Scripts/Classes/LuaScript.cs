@@ -258,6 +258,10 @@ namespace WakfuAudio.Scripts.Classes
                 first++;
             return first.ToString();
         }
+        public Integration GetIntegration(string asset)
+        {
+            return integrations.Where(x => x.asset == asset).First();
+        }
         public List<Integration> SortedIntegrations()
         {
             return integrations.OrderBy(x => x.asset).ToList();

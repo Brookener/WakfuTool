@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -59,6 +60,9 @@ namespace WakfuAudio
             ScriptPanel.ItemsSource = items;
             ResultBox.Text = items.Count == 0 ? "" : items.Count + " Results";
         }
+
+        #region Control Events 
+
         private void SearchBoxKeyUp(object sender, KeyEventArgs e)
         {
             if(e.Key == Key.Return)
@@ -72,7 +76,6 @@ namespace WakfuAudio
         {
             Database.LoadAllScriptsFromFolder();
         }
-
         private void PanelSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var list = new List<LuaScript>();
@@ -80,34 +83,39 @@ namespace WakfuAudio
                 list.Add((o as LuaDataGridItem).script);
             SelectionChanged(list, e);
         }
-
         private void CategoryFilterDropdownClosed(object sender, EventArgs e)
         {
             LoadList();
         }
+
+        #endregion
+
+        public class LuaDataGridItem
+        {
+            public string Id { get; set; }
+            public ScriptType Type { get; set; }
+            public string Usage { get; set; }
+            public string Modification
+            {
+                get => new FileInfo(script.FilePath()).LastWriteTime.ToString();
+            }
+
+            public LuaScript script;
+
+            public LuaDataGridItem(LuaScript newScript)
+            {
+                script = newScript;
+                UpdateValues();
+            }
+
+            public void UpdateValues()
+            {
+                Id = script.id;
+                Type = script.type;
+                Usage = String.Join("\n", script.MonstersUsing().Select(x => x.Id));
+            }
+        }
     }
 
-    public class LuaDataGridItem
-    {
-        public string Id { get; set; }
-        public ScriptType Type { get; set; }
-        public string Usage { get; set; }
-        public string Description { get; set; }
-
-        public LuaScript script;
-
-        public LuaDataGridItem(LuaScript newScript)
-        {
-            script = newScript;
-            Description = script.description;
-            UpdateValues();
-        }
-
-        public void UpdateValues()
-        {
-            Id = script.id;
-            Type = script.type;
-            Usage = String.Join("\n", script.MonstersUsing().Select(x => x.Id));
-        }
-    }
+    
 }

@@ -47,6 +47,11 @@
 
                     </local:ScriptList>
                 </TabItem>
+                <TabItem Header="Assets">
+                    <local:AssetList x:Name="AssetPanel">
+                        
+                    </local:AssetList>
+                </TabItem>
             </TabControl>
             <TextBlock Grid.Row="1" x:Name="Infos" Margin="5">
                 

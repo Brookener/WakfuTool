@@ -398,32 +398,6 @@ namespace WakfuAudio.Scripts.Classes
 
         #region Values 
 
-        public static string[] AllAudioExportFiles()
-        {
-            return Directory.GetFiles(ExportsFolder(), "*.ogg", SearchOption.AllDirectories);
-        }
-        public static string[] AllAudioSourcesFiles()
-        {
-            return Directory.GetFiles(SourcesFolder(), "*.wav", SearchOption.AllDirectories);
-        }
-        public static List<string> AllAssetFiles(ScriptType script, AnimType anim)
-        {
-            return Directory.GetFiles(AudioFolder(script, anim, true), ".ogg").ToList();
-        }
-        public static List<string> AllAssetId(ScriptType script, AnimType anim)
-        {
-            return AllAssetFiles(script, anim).Select(x => FileNameFromPath(x)).ToList();
-        }
-        public static List<string> AllAssetsReference()
-        {
-            var list = new List<string>();
-            datas.scripts.Values.ToList().ForEach(x => list.AddRange(x.AllAssets()));
-            return list;
-        }
-        public static bool DatasContainsAsset(string asset)
-        {
-            return AllAssetsReference().Contains(asset);
-        }
         public static string[] AllAnimScriptFiles()
         {
             return Directory.GetFiles(AnmFolder());
@@ -467,7 +441,7 @@ namespace WakfuAudio.Scripts.Classes
         {
             long id = 90000001;
 
-            var refs = AllAssetsReference();
+            var refs = AllAssetsReferences();
             var assets = AllAssetId(ScriptType.mobBark, AnimType.none);
 
             while (refs.Contains(id.ToString()) || assets.Contains(id.ToString()))
@@ -563,6 +537,123 @@ namespace WakfuAudio.Scripts.Classes
                 if (MessageBox.Show("Removed Script is not used anywhere.\nDelete script file ?", "Question", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                     script.DeleteScript();
         }
+        public static IEnumerable<LuaScript> ScriptsUsingsAsset(string asset)
+        {
+            return datas.scripts.Values.Where(x => x.AllAssets().Contains(asset));
+        }
+        public static Dictionary<string, List<LuaScript>> AssetInScriptsDictionnary()
+        {
+            var dic = new Dictionary<string, List<LuaScript>>();
+            foreach (string asset in AllAssetsReferences())
+                dic.Add(asset, ScriptsUsingsAsset(asset).ToList());
+            return dic;
+        }
+        
+
+        #endregion
+
+        #region Assets
+
+        public static bool AssetFile(string asset, out string file)
+        {
+            file = "";
+            try
+            {
+                var files = Directory.GetFiles(ExportsFolder(), asset + ".ogg", SearchOption.AllDirectories);
+                if (files.Length > 0)
+                {
+                    file = files[0];
+                    return true;
+                }
+            }
+            catch
+            {
+
+            }
+            return false;
+        }
+        public static string[] AllAssetSources(string asset)
+        {
+            try
+            {
+                return Directory.GetFiles(Database.SourcesFolder(), asset + "*", SearchOption.AllDirectories);
+            }
+            catch
+            {
+                return new string[0];
+            }
+        }
+        
+        public static string FirstAssetSource(string asset)
+        {
+            var sources = AllAssetSources(asset);
+            return sources.Length > 0 ? sources[0] : "";
+        }
+        public static void PlayAssetSource(string asset, double vol)
+        {
+            AudioPlayer.PlayAudio(FirstAssetSource(asset), vol);
+        }
+        public static string[] AllAssetFiles()
+        {
+            return Directory.GetFiles(ExportsFolder(), "*.ogg", SearchOption.AllDirectories);
+        }
+        public static string[] AllAudioSourcesFiles()
+        {
+            return Directory.GetFiles(SourcesFolder(), "*.wav", SearchOption.AllDirectories);
+        }
+        public static IEnumerable<string> AllAudioSourcesFilesNames()
+        {
+            return AllAudioSourcesFiles().Select(x => FileNameFromPath(x));
+        }
+        public static string[] AllAssetFiles(ScriptType script, AnimType anim)
+        {
+            return Directory.GetFiles(AudioFolder(script, anim, true), ".ogg");
+        }
+        public static IEnumerable<string> AllAssetId()
+        {
+            return AllAssetFiles().Select(x => FileNameFromPath(x));
+        }
+        public static IEnumerable<string> AllAssetId(ScriptType script, AnimType anim)
+        {
+            return AllAssetFiles(script, anim).Select(x => FileNameFromPath(x));
+        }
+        public static IEnumerable<string> AllAssetsReferences()
+        {
+            return datas.scripts.Values.SelectMany(x => x.AllAssets()).Distinct();
+        }
+        public static bool DatasContainsAsset(string asset)
+        {
+            return AllAssetsReferences().Contains(asset);
+        }
+        public static IEnumerable<string> AllUnreferencedAssets()
+        {
+            return AllAssetId().Where(x => !AllAssetsReferences().Contains(x));
+        }
+        public static Dictionary<string, List<string>> SourcesByAsset()
+        {
+            var dic = new Dictionary<string, List<string>>();
+            foreach (string s in AllAudioSourcesFiles())
+            {
+                var id = FileNameFromPath(s).Split('_')[0];
+                if (!dic.ContainsKey(id))
+                    dic.Add(id, new List<string>());
+                dic[id].Add(s);
+            }
+            return dic;
+        }
+        public static Dictionary<string, string> ExportFilesByAsset()
+        {
+            var dic = new Dictionary<string, string>();
+            foreach (string s in AllAssetFiles())
+            {
+                var id = FileNameFromPath(s);
+                if (!dic.ContainsKey(id))
+                    dic.Add(id, s);
+            }
+            return dic;
+            return AllAssetFiles().ToDictionary(x => FileNameFromPath(x), x => x);
+        }
+
         #endregion
 
         #region utils

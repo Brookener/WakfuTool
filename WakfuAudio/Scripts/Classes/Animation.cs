@@ -233,6 +233,8 @@ namespace WakfuAudio.Scripts.Classes
         }
         public static AnimType DetectAnimTypeFromAsset(string asset)
         {
+            if (asset == null || asset.Length < 4)
+                return AnimType.other;
             switch (asset.Substring(0, 3))
             {
                 case "300": return AnimType.attack;
