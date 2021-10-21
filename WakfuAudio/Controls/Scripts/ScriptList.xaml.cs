@@ -52,7 +52,6 @@ namespace WakfuAudio
                 {
                     var item = new LuaDataGridItem(file.Value);
                     items.Add(item);
-                    await Task.Delay(1);
                 }
             }
 
