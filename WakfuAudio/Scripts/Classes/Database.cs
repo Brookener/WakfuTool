@@ -545,7 +545,7 @@ namespace WakfuAudio.Scripts.Classes
         {
             var dic = new Dictionary<string, List<LuaScript>>();
             foreach (string asset in AllAssetsReferences())
-                dic.Add(asset, ScriptsUsingsAsset(asset).ToList());
+                dic.Add(asset, ScriptsUsingsAsset(asset)?.ToList());
             return dic;
         }
         
@@ -651,7 +651,6 @@ namespace WakfuAudio.Scripts.Classes
                     dic.Add(id, s);
             }
             return dic;
-            return AllAssetFiles().ToDictionary(x => FileNameFromPath(x), x => x);
         }
 
         #endregion
@@ -699,7 +698,6 @@ namespace WakfuAudio.Scripts.Classes
     {
         public SortedDictionary<string, Monster> monsters = new SortedDictionary<string, Monster>();
         public SortedDictionary<string, LuaScript> scripts = new SortedDictionary<string, LuaScript>();
-
 
     }
 }
