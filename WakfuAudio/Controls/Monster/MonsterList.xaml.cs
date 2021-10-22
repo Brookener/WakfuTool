@@ -102,10 +102,6 @@ namespace WakfuAudio
                 groupItem.Visibility = groupItem.Items.Count == 0 ? Visibility.Collapsed : Visibility.Visible;
             }
         }
-        //public void SetMonsterItemHeader(Monster monster)
-        //{
-        //    items[monster.Id].Header = monster.Id + (monster.Name == "" ? "" : (" " + monster.Name));
-        //}
         public void UpdateList(string filter)
         {
             foreach(TreeViewItem group in ListTree.Items)
@@ -115,7 +111,7 @@ namespace WakfuAudio
                     group.Visibility = Visibility.Visible;
 
                 foreach(TreeViewItem item in group.Items)
-                    if ((item.Header as string).IndexOf(filter) > -1)
+                    if (Utils.StringContains(item.Header as string, filter))
                         item.Visibility = group.Visibility = Visibility.Visible;
             }
             
