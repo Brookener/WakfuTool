@@ -101,6 +101,10 @@ namespace WakfuAudio
             {
                 get => new FileInfo(script.FilePath()).LastWriteTime.ToString();
             }
+            public string MissingAsset
+            {
+                get => script.MissingAssets().Count.ToString();
+            }
 
             public LuaScript script;
 

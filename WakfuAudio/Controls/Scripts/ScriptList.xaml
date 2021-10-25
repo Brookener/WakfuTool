@@ -35,7 +35,8 @@
                 <DataGridTextColumn Header="Id" Binding="{Binding Id}" />
                 <DataGridTextColumn Header="Type" Binding="{Binding Type}"/>
                 <DataGridTextColumn Header="Used in Monsters" Binding="{Binding Usage}" MaxWidth="150"/>
-                <DataGridTextColumn Header="Modification" Binding="{Binding Modification}" MaxWidth="150"/>
+                <DataGridTextColumn Header="Missing Asset" Binding="{Binding MissingAsset}" MaxWidth="150"/>
+                <DataGridTextColumn Header="Modification" Binding="{Binding Modification}" MaxWidth="200"/>
             </DataGrid.Columns>
 
             <DataGrid.ContextMenu>
