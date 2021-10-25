@@ -46,6 +46,8 @@ namespace WakfuAudio
         }
         public async Task LoadList(string filter)
         {
+            ResultBox.Text = "Loading...";
+            await Task.Delay(10);
             items.Clear();
             foreach (KeyValuePair<string, LuaScript> file in Database.datas.scripts)
             {

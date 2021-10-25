@@ -42,16 +42,19 @@ namespace WakfuAudio
         {
             LoadList(SearchPatern.Text);
         }
-        public void LoadList(string filter)
+        public async void LoadList(string filter)
         {
+            ResultBox.Text = "Loading...";
+            await Task.Delay(10);
             var list = Database.AllAssetsReferences().ToList();
             list.AddRange(Database.AllUnreferencedAssets());
 
             NewAssetListItem(list.Where(x => !items.ContainsKey(x)));
-            
+            var filteredList = items.Where(x => filter == "" || Utils.StringContains(x.Key, filter)).ToDictionary(x => x.Key, x => x.Value).Values;
+
             AssetPanel.ItemsSource = null;
-            AssetPanel.ItemsSource = items.Where(x => filter == "" || Utils.StringContains(x.Key, filter)).ToDictionary(x => x.Key, x => x.Value).Values;
-            ResultBox.Text = items.Count == 0 ? "" : items.Count + " Results";
+            AssetPanel.ItemsSource = filteredList;
+            ResultBox.Text = filteredList .Count == 0 ? "" : filteredList.Count + " Results";
         }
         private void NewAssetListItem(IEnumerable<string> assets)
         {
