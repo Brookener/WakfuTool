@@ -17,7 +17,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
-            <TextBox x:Name="SearchPatern" KeyUp="SearchBoxKeyUp"/>
+            <TextBox x:Name="SearchPatern" KeyUp="SearchBoxKeyUp" BorderThickness="0"/>
             <ComboBox Grid.Column="1" x:Name="CategoryFilter" DropDownClosed="CategoryFilterDropdownClosed">
 
             </ComboBox>
@@ -27,7 +27,7 @@
 
         </TextBlock>
 
-        <DataGrid x:Name="AssetPanel" AutoGenerateColumns="False" 
+        <DataGrid x:Name="AssetPanel" AutoGenerateColumns="False" BorderThickness="0"  
                   VerticalScrollBarVisibility="Auto" SelectionMode="Extended"
                   Grid.Row="2" IsReadOnly="true" KeyUp="ListKeyUp">
 

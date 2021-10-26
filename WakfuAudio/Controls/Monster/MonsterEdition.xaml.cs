@@ -25,7 +25,7 @@ namespace WakfuAudio
     public partial class MonsterEdition : UserControl
     {
         public Monster monster;
-        public Animation animSelected;
+        public AnimItem animSelected;
         public List<LuaScript> scriptSelection = new List<LuaScript>();
         public Dictionary<Animation, AnimItem> items = new Dictionary<Animation, AnimItem>();
         private SwfDecompiler decompiler;
@@ -128,7 +128,7 @@ namespace WakfuAudio
                     break;
                 default:
                     bool bark = lua.type == ScriptType.mobBark;
-                    inte = new Integration(lua, bark ? monster.FirstBarkAsset() : monster.FirstSoundAsset(animSelected.type));
+                    inte = new Integration(lua, bark ? monster.FirstBarkAsset() : monster.FirstSoundAsset(animSelected.animation.type));
                     break;
             }
             if (lua.integrations.Count > 0)
@@ -165,8 +165,8 @@ namespace WakfuAudio
             var item = sender as ScriptItem;
             Database.GetOrCreate(item.script, out LuaScript script);
             scriptSelection.Remove(script);
-            if (scriptSelection.Count == 0)
-                ScriptEdition.Update(null);
+            //if (scriptSelection.Count == 0)
+            //    ScriptEdition.Update(null);
         }
         private void ScriptRemoved(object sender, RoutedEventArgs e)
         {
@@ -178,8 +178,8 @@ namespace WakfuAudio
         }
         private void AnimItemSelected(object sender, RoutedEventArgs e)
         {
-            var anim = (sender as AnimItem).Tag as Animation;
-            animSelected = anim;
+            animSelected?.UnSelect();
+            animSelected = sender as AnimItem;
         }
         private void AnimItemUnSelected(object sender, RoutedEventArgs e)
         {
@@ -248,7 +248,7 @@ namespace WakfuAudio
             {
                 inte.asset,
                 monster.Name.Replace(" ",""),
-                animSelected.name.Substring(animSelected.splited ? 2 : 0),
+                animSelected.animation.name.Substring(animSelected.animation.splited ? 2 : 0),
         
             };
             Clipboard.SetText(String.Join("_", name.Where(x => x != "")));

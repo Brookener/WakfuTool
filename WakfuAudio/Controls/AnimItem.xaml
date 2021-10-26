@@ -7,44 +7,40 @@
              mc:Ignorable="d" 
              d:DesignHeight="30" d:DesignWidth="250"
              BorderThickness="0" BorderBrush="#CCDADADA" Margin="0,0,0,10" MouseLeftButtonDown="ControlMouseLeftDown">
-    
-    <Grid x:Name="MainGrid" Background="#19FFFFFF">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="auto"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
 
-        <!-- Anim Name -->
-        <Grid Background="#7F686868">
+    <Border BorderThickness="2" x:Name="SelectionBorder">
+        <Grid x:Name="MainGrid" Background="#7FFFFFFF">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Button x:Name="SplitButton" Width="20" BorderThickness="0" 
+
+            <!-- Anim Name -->
+            <Grid Background="#7F686868">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <Button x:Name="SplitButton" Width="20" BorderThickness="0" 
                     Click="SplitClick"
                     ToolTip="Split animation into the different angles">
-                <Button.Background>
-                    <ImageBrush ImageSource="../Icons/Split.png" Stretch="Uniform"/>
-                </Button.Background>
+                    <Button.Background>
+                        <ImageBrush ImageSource="../Icons/Split.png" Stretch="Uniform"/>
+                    </Button.Background>
 
-            </Button>
-            <Button x:Name="MergeButton" Width="20" Visibility="Collapsed"
+                </Button>
+                <Button x:Name="MergeButton" Width="20" Visibility="Collapsed"
                     BorderThickness="0" Click="MergeClick"
                     ToolTip="Merge different angles into one animation">
-                <Button.Background>
-                    <ImageBrush ImageSource="../Icons/Merge.png" Stretch="Uniform"/>
-                </Button.Background>
+                    <Button.Background>
+                        <ImageBrush ImageSource="../Icons/Merge.png" Stretch="Uniform"/>
+                    </Button.Background>
 
-            </Button>
-            <Button x:Name="NameBlock" Foreground="White" 
+                </Button>
+                <Button x:Name="NameBlock" Foreground="White" 
                      Grid.Column="1"
                      FontWeight="Bold" 
                      Background="{x:Null}" 
@@ -52,171 +48,168 @@
                      Margin="0,3" FontSize="16" 
                      Click="AnimClick"
                      ToolTip="Click to show animation. Shift+click to play sound of animation"/>
-            <ComboBox Grid.Column="2" Width="0" BorderThickness="0"
+                <ComboBox Grid.Column="2" Width="0" BorderThickness="0"
                       x:Name="AngleBoxes">
-                <ComboBoxItem>
-                    <StackPanel Orientation="Horizontal">
-                        <CheckBox >
-                            
-                        </CheckBox>
-                        <TextBlock>
+                    <ComboBoxItem>
+                        <StackPanel Orientation="Horizontal">
+                            <CheckBox >
+
+                            </CheckBox>
+                            <TextBlock>
                             0
-                        </TextBlock>
-                    </StackPanel>
-                </ComboBoxItem>
-                <ComboBoxItem>
-                    <StackPanel Orientation="Horizontal">
-                        <CheckBox >
+                            </TextBlock>
+                        </StackPanel>
+                    </ComboBoxItem>
+                    <ComboBoxItem>
+                        <StackPanel Orientation="Horizontal">
+                            <CheckBox >
 
-                        </CheckBox>
-                        <TextBlock>
+                            </CheckBox>
+                            <TextBlock>
                             1
-                        </TextBlock>
-                    </StackPanel>
-                </ComboBoxItem>
-                <ComboBoxItem>
-                    <StackPanel Orientation="Horizontal">
-                        <CheckBox >
+                            </TextBlock>
+                        </StackPanel>
+                    </ComboBoxItem>
+                    <ComboBoxItem>
+                        <StackPanel Orientation="Horizontal">
+                            <CheckBox >
 
-                        </CheckBox>
-                        <TextBlock>
+                            </CheckBox>
+                            <TextBlock>
                             2
-                        </TextBlock>
-                    </StackPanel>
-                </ComboBoxItem>
-                <ComboBoxItem>
-                    <StackPanel Orientation="Horizontal">
-                        <CheckBox >
+                            </TextBlock>
+                        </StackPanel>
+                    </ComboBoxItem>
+                    <ComboBoxItem>
+                        <StackPanel Orientation="Horizontal">
+                            <CheckBox >
 
-                        </CheckBox>
-                        <TextBlock>
+                            </CheckBox>
+                            <TextBlock>
                             3
-                        </TextBlock>
-                    </StackPanel>
-                </ComboBoxItem>
-                <ComboBoxItem>
-                    <StackPanel Orientation="Horizontal">
-                        <CheckBox >
+                            </TextBlock>
+                        </StackPanel>
+                    </ComboBoxItem>
+                    <ComboBoxItem>
+                        <StackPanel Orientation="Horizontal">
+                            <CheckBox >
 
-                        </CheckBox>
-                        <TextBlock>
+                            </CheckBox>
+                            <TextBlock>
                             4
-                        </TextBlock>
-                    </StackPanel>
-                </ComboBoxItem>
-                <ComboBoxItem>
-                    <StackPanel Orientation="Horizontal">
-                        <CheckBox >
+                            </TextBlock>
+                        </StackPanel>
+                    </ComboBoxItem>
+                    <ComboBoxItem>
+                        <StackPanel Orientation="Horizontal">
+                            <CheckBox >
 
-                        </CheckBox>
-                        <TextBlock>
+                            </CheckBox>
+                            <TextBlock>
                             5
-                        </TextBlock>
-                    </StackPanel>
-                </ComboBoxItem>
-                <ComboBoxItem>
-                    <StackPanel Orientation="Horizontal">
-                        <CheckBox >
+                            </TextBlock>
+                        </StackPanel>
+                    </ComboBoxItem>
+                    <ComboBoxItem>
+                        <StackPanel Orientation="Horizontal">
+                            <CheckBox >
 
-                        </CheckBox>
-                        <TextBlock>
+                            </CheckBox>
+                            <TextBlock>
                             6
-                        </TextBlock>
-                    </StackPanel>
-                </ComboBoxItem>
-                <ComboBoxItem>
-                    <StackPanel Orientation="Horizontal">
-                        <CheckBox >
+                            </TextBlock>
+                        </StackPanel>
+                    </ComboBoxItem>
+                    <ComboBoxItem>
+                        <StackPanel Orientation="Horizontal">
+                            <CheckBox >
 
-                        </CheckBox>
-                        <TextBlock>
+                            </CheckBox>
+                            <TextBlock>
                             7
-                        </TextBlock>
-                    </StackPanel>
-                </ComboBoxItem>
-                
-            </ComboBox>
-        </Grid>
-        
+                            </TextBlock>
+                        </StackPanel>
+                    </ComboBoxItem>
 
-        <!-- Sounds -->
-        <Border Grid.Column="1" BorderThickness="2,0,0,0" BorderBrush="White">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
+                </ComboBox>
+            </Grid>
 
-                <Grid Background="Black">
-                    <Button Grid.Column="0" BorderThickness="0" 
+            <!-- Sounds -->
+            <Border Grid.Column="1" BorderThickness="2,0,0,0" BorderBrush="White">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Background="Black">
+                        <Button Grid.Column="0" BorderThickness="0" 
                         Click="AddScriptClick" Width="15"
                             ToolTip="Add Sound script">
-                        <Button.Background>
-                            <ImageBrush ImageSource="../Icons/PlusIcon.png" Stretch="Uniform"/>
-                        </Button.Background>
+                            <Button.Background>
+                                <ImageBrush ImageSource="../Icons/PlusIcon.png" Stretch="Uniform"/>
+                            </Button.Background>
 
-                    </Button>
-                </Grid>
-                
-                <StackPanel x:Name="SoundBin" Grid.Column="1"
+                        </Button>
+                    </Grid>
+
+                    <StackPanel x:Name="SoundBin" Grid.Column="1"
                             Background="{x:Null}">
-                </StackPanel>
-            </Grid>
-        </Border>
+                    </StackPanel>
+                </Grid>
+            </Border>
 
-        <!-- Barks -->
-        <Border Grid.Column="2" BorderThickness="2,0,0,0" 
+            <!-- Barks -->
+            <Border Grid.Column="2" BorderThickness="2,0,0,0" 
                 BorderBrush="#FCFFFFFF">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Grid Background="Black" >
-                    <Button BorderThickness="0" Click="AddBarkClick"
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Background="Black" >
+                        <Button BorderThickness="0" Click="AddBarkClick"
                             ToolTip="Add Bark script"
                             Width="15">
-                        <Button.Background>
-                            <ImageBrush ImageSource="../Icons/PlusIcon.png" Stretch="Uniform"/>
-                        </Button.Background>
+                            <Button.Background>
+                                <ImageBrush ImageSource="../Icons/PlusIcon.png" Stretch="Uniform"/>
+                            </Button.Background>
 
-                    </Button>
-                </Grid>
-                
-                <StackPanel x:Name="BarkBin" Grid.Column="1" Background="{x:Null}" Margin="10,0,0,0"
+                        </Button>
+                    </Grid>
+
+                    <StackPanel x:Name="BarkBin" Grid.Column="1" Background="{x:Null}" Margin="10,0,0,0"
                  >
-                </StackPanel>
-            </Grid>
-        </Border>
-        
-        <!-- Aps -->
-        <Border Grid.Column="3" BorderThickness="2,0,0,0" 
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <!-- Aps -->
+            <Border Grid.Column="3" BorderThickness="2,0,0,0" 
                 BorderBrush="#FCFFFFFF">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Grid Background="Black" >
-                    <Button BorderThickness="0" Click="AddApsClick"
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Background="Black" >
+                        <Button BorderThickness="0" Click="AddApsClick"
                             ToolTip="Add Aps script. Shift+Click to increment"
                             Width="15">
-                        <Button.Background>
-                            <ImageBrush ImageSource="../Icons/PlusIcon.png" Stretch="Uniform"/>
-                        </Button.Background>
+                            <Button.Background>
+                                <ImageBrush ImageSource="../Icons/PlusIcon.png" Stretch="Uniform"/>
+                            </Button.Background>
 
-                    </Button>
-                </Grid>
+                        </Button>
+                    </Grid>
 
-                <StackPanel x:Name="ApsBin" Grid.Column="1" Background="{x:Null}" Margin="10,0,0,0"
+                    <StackPanel x:Name="ApsBin" Grid.Column="1" Background="{x:Null}" Margin="10,0,0,0"
                  >
-                </StackPanel>
-            </Grid>
-        </Border>
+                    </StackPanel>
+                </Grid>
+            </Border>
 
-
-
-
-
-    </Grid>
+        </Grid>
+    </Border>
+    
 </UserControl>

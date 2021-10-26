@@ -202,7 +202,6 @@
     <Compile Include="Scripts\Classes\Integration.cs" />
     <Compile Include="Scripts\Classes\LuaScript.cs" />
     <Compile Include="Scripts\Classes\Monster.cs" />
-    <Compile Include="Scripts\Classes\Note.cs" />
     <Compile Include="Scripts\Classes\Psql.cs" />
     <Compile Include="Scripts\Classes\SuperAnimExporter.cs" />
     <Compile Include="Scripts\Classes\SwfDecompiler.cs" />

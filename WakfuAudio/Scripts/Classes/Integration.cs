@@ -76,11 +76,16 @@ namespace WakfuAudio.Scripts.Classes
 
         public string AssetFile()
         {
-            return Database.AudioFolder(script.type, Animation.DetectAnimTypeFromAsset(asset), true) + @"\" + asset + ".ogg";
+            if (Database.AssetFile(asset, out string file))
+                return file;
+            else
+                return null;
+
+            //return Database.AudioFolder(script.type, Animation.DetectAnimTypeFromAsset(asset), true) + @"\" + asset + ".ogg";
         }
         public bool AssetExists()
         {
-            return File.Exists(AssetFile());
+            return Database.AssetFile(asset, out string file);
         }
         public string[] AssetSources()
         {

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WakfuAudio"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="1200" Closed="OnClosed" Background="White">
+        Title="MainWindow" Height="450" Width="1200" Closed="OnClosed" Background="#FF415F68">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
@@ -19,37 +19,37 @@
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
             
-            <TabControl Margin="10">
-                <TabItem Header="Monsters">
+            <TabControl Margin="10" Background="{x:Null}" BorderThickness="0">
+                <TabItem Header="Monsters" BorderThickness="0">
                     <local:MonsterList x:Name="MonsterPanel">
 
                     </local:MonsterList>
                 </TabItem>
 
                 <TabItem Header="Player">
-                    <local:MonsterList x:Name="PlayerPanel">
+                    <local:MonsterList x:Name="PlayerPanel" BorderThickness="0">
                         
                     </local:MonsterList>
                 </TabItem>
                 <TabItem Header="Pets">
-                    <local:MonsterList x:Name="PetPanel">
+                    <local:MonsterList x:Name="PetPanel" BorderThickness="0">
                         
                     </local:MonsterList>
                 </TabItem>
-                
-                <TabItem Header="Settings">
+
+                <TabItem Header="Settings" BorderThickness="0">
                     <local:SettingsControl>
 
                     </local:SettingsControl>
                 </TabItem>
 
                 <TabItem Header="Scripts">
-                    <local:ScriptList x:Name="ScriptPanel">
+                    <local:ScriptList x:Name="ScriptPanel" BorderThickness="0">
 
                     </local:ScriptList>
                 </TabItem>
                 <TabItem Header="Assets">
-                    <local:AssetList x:Name="AssetPanel">
+                    <local:AssetList x:Name="AssetPanel" BorderThickness="0">
                         
                     </local:AssetList>
                 </TabItem>

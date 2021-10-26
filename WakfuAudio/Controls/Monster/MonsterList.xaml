@@ -5,26 +5,25 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WakfuAudio"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="200">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="150"/>
         </Grid.RowDefinitions>
-        <TextBox x:Name="FilterBox" KeyUp="FilterKeyUp"/>
+        <TextBox x:Name="FilterBox" KeyUp="FilterKeyUp" BorderThickness="0"/>
 
         <TreeView Grid.Row="1" x:Name="ListTree"
                   AllowDrop="True"
-                  MinWidth="60" Padding="0,10,10,10">
+                  MinWidth="60" Padding="0,10,10,10" Background="#FF172225" Foreground="White">
             
         </TreeView>
         <Image Grid.Row="2" Stretch="Uniform"
                x:Name="MonsterView">
             
         </Image>
-        <TextBlock x:Name="IdBox" Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Left">
-            
-        </TextBlock>
+        <TextBlock x:Name="IdBox" Grid.Row="2" 
+                   VerticalAlignment="Bottom" HorizontalAlignment="Left" Visibility="Collapsed" Foreground="White"/>
     </Grid>
 </UserControl>

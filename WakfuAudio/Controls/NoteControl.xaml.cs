@@ -56,6 +56,8 @@ namespace WakfuAudio
 
         private void NameKeyUp(object sender, KeyEventArgs e)
         {
+            if (notes.ContainsKey(NameBox.Text))
+                return;
             notes.Remove(noteName);
             noteName = NameBox.Text;
             notes.Add(noteName, Content.Text);
@@ -66,6 +68,8 @@ namespace WakfuAudio
 
         private void ContentKeyUp(object sender, KeyEventArgs e)
         {
+            if (notes[noteName] == Content.Text)
+                return;
             notes[noteName] = Content.Text;
             Database.SaveNotes();
         }

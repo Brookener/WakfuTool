@@ -40,8 +40,12 @@
             </Button>
         </Grid>
 
-        <TextBox Grid.Row="2" x:Name="Content" KeyUp="ContentKeyUp">
-            
-        </TextBox>
+        <ScrollViewer Margin="5" Grid.Row="2" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+            <TextBox x:Name="Content" KeyUp="ContentKeyUp"
+                 AcceptsReturn="True" AcceptsTab="True" Background="#FF172225" Foreground="White">
+
+            </TextBox>
+        </ScrollViewer>
+        
     </Grid>
 </UserControl>

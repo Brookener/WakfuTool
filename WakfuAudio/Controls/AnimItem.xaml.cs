@@ -66,6 +66,11 @@ namespace WakfuAudio
                 bin.Children.Add(item);
             }
         }
+        public void UnSelect()
+        {
+            SelectionBorder.Background = null;
+
+        }
 
         #region Control Events
 
@@ -73,11 +78,13 @@ namespace WakfuAudio
         {
             ScriptSelected(sender, e);
             Selected(this, e);
+            SelectionBorder.Background = new SolidColorBrush(Color.FromArgb(180,255,255,255));
         }
         private void ScriptItemUnFocused(object sender, RoutedEventArgs e)
         {
             ScriptUnSelected(sender, e);
             UnSelected(this, e);
+
         }
         private void ScriptItemRemoved(object sender, RoutedEventArgs e)
         {

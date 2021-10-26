@@ -78,6 +78,7 @@ namespace WakfuAudio
                 var groupItem = new TreeViewItem()
                 {
                     Header = groupName,
+                    Foreground = Constantes.White, 
                 };
                 ListTree.Items.Add(groupItem);
 
@@ -92,6 +93,8 @@ namespace WakfuAudio
                     {
                         Header = monster.FullName(),
                         Tag = monster,
+                        Foreground = Constantes.White,
+
                     };
                     item.Selected += new RoutedEventHandler(ItemSelected);
                     item.MouseDoubleClick += new MouseButtonEventHandler(ItemDoubleClick);
