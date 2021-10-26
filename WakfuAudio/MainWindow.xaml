@@ -5,10 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WakfuAudio"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" Closed="OnClosed" Background="White">
+        Title="MainWindow" Height="450" Width="1200" Closed="OnClosed" Background="White">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="950"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
@@ -62,6 +63,9 @@
         <local:MonsterEdition Grid.Column="1" x:Name="Editor">
 
         </local:MonsterEdition>
+        <local:NoteControl Grid.Column="2">
+            
+        </local:NoteControl>
         
 
     </Grid>

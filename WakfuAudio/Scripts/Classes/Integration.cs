@@ -93,7 +93,11 @@ namespace WakfuAudio.Scripts.Classes
         }
         public void PlayAssetSource(double vol)
         {
-            AudioPlayer.PlayAudio(FirstAssetSource(), vol);
+            var file = FirstAssetSource();
+            if(file == "")
+                MessageBox.Show("This file has no source in folders .wav file)");
+            else
+                AudioPlayer.PlayAudio(file, vol);
         }
         public void PlayAssetSource()
         {

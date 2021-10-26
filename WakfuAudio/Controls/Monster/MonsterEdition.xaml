@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:WakfuAudio"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="950" Background="#FF415F68">
-    <Grid x:Name="MainGrid">
+    <Grid x:Name="MainGrid" Width="950">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
@@ -15,7 +15,7 @@
         </Grid.RowDefinitions>
 
         <!-- Header -->
-        <Grid Margin="5">
+        <Grid Margin="5" Width="950" HorizontalAlignment="Left">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto" />
                 <ColumnDefinition Width="auto" />
@@ -81,18 +81,13 @@
         </Grid>
 
         <!-- Monster -->
-        <Grid Grid.Row="2">
+        <Grid Grid.Row="2" HorizontalAlignment="Left" Width="950">
 
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="950"/>
-            </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-
             <!-- Anim Bin -->
-            <Grid Grid.Column="1" x:Name="AnimGrid">
+            <Grid x:Name="AnimGrid">
                 <Grid Background="#A5000000" >
                     <Grid.RowDefinitions>
                         <RowDefinition Height="50"/>

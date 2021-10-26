@@ -108,7 +108,7 @@ namespace WakfuAudio
             if (Keyboard.IsKeyDown(Key.LeftShift))
                 MainWindow.ShowFileInExplorer(inte.AssetFile());
             else
-                inte.PlayAssetSource();
+                inte.PlayAssetSource(1);
         }
         private void CopyAssetClick(object sender, RoutedEventArgs e)
         {

@@ -16,6 +16,7 @@ namespace WakfuAudio.Scripts.Classes
     {
         public static Parameters parameters;
         public static DatabaseSave datas;
+        public static NoteSave notes;
 
         public static List<string> allApsIds;
 
@@ -24,6 +25,7 @@ namespace WakfuAudio.Scripts.Classes
             LoadParameters();
             LoadDatas();
             LoadNames();
+            LoadNotes();
             //allApsIds = AllApsScriptId();
         }
 
@@ -78,6 +80,42 @@ namespace WakfuAudio.Scripts.Classes
                 datas.scripts.Add(lua.id, lua);
             }
         }
+
+        #region Notes
+
+        private const string NoteFileName = "Notes.dat";
+        public static void LoadNotes()
+        {
+            if (File.Exists(NoteFileName))
+            {
+                Stream file = File.Open(NoteFileName, FileMode.Open);
+                BinaryFormatter bf = new BinaryFormatter();
+
+                try
+                {
+                    notes = (NoteSave)bf.Deserialize(file);
+                }
+                catch (Exception e)
+                {
+                    notes = new NoteSave();
+                    MessageBox.Show(e.Message);
+
+                }
+                file.Close();
+            }
+            else
+                notes = new NoteSave();
+        }
+        public static void SaveNotes()
+        {
+            Stream file = null;
+            file = File.Open(NoteFileName, FileMode.OpenOrCreate);
+            BinaryFormatter bf = new BinaryFormatter();
+            bf.Serialize(file, notes);
+            file.Close();
+        }
+
+        #endregion
 
         #region Parameters
 
@@ -652,6 +690,10 @@ namespace WakfuAudio.Scripts.Classes
             }
             return dic;
         }
+        public static List<Integration> AllIntegrations()
+        {
+            return datas.scripts.Values.SelectMany(x => x.integrations).ToList();
+        }
 
         #endregion
 
@@ -698,6 +740,15 @@ namespace WakfuAudio.Scripts.Classes
     {
         public SortedDictionary<string, Monster> monsters = new SortedDictionary<string, Monster>();
         public SortedDictionary<string, LuaScript> scripts = new SortedDictionary<string, LuaScript>();
+        
+    }
 
+    [Serializable]
+    public class NoteSave
+    {
+        public SortedDictionary<string, string> notesList = new SortedDictionary<string, string>();
+        public string lastNote = "";
+        //public List<Note> notesList = new List<Note>();
+        //public Note lastNote;
     }
 }

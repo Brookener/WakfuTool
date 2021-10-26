@@ -46,6 +46,7 @@ namespace WakfuAudio
         {
             ResultBox.Text = "Loading...";
             await Task.Delay(10);
+
             var list = Database.AllAssetsReferences().ToList();
             list.AddRange(Database.AllUnreferencedAssets());
 

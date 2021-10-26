@@ -25,8 +25,10 @@ namespace WakfuAudio
     {
         public Animation animation;
         public RoutedEventHandler ScriptSelected;
+        public RoutedEventHandler ScriptUnSelected;
         public RoutedEventHandler ScriptRemoved;
         public RoutedEventHandler Selected;
+        public RoutedEventHandler UnSelected;
         public MonsterEdition editor;
 
         public AnimItem(Animation anim, MonsterEdition newEditor)
@@ -59,6 +61,7 @@ namespace WakfuAudio
                 var item = new ScriptItem(script.Key, type, this, script.Value);
                 item.Margin = new Thickness(2);
                 item.GotFocus += new RoutedEventHandler(ScriptItemFocused);
+                item.LostFocus += new RoutedEventHandler(ScriptItemUnFocused);
                 item.Removed += new RoutedEventHandler(ScriptItemRemoved);
                 bin.Children.Add(item);
             }
@@ -70,6 +73,11 @@ namespace WakfuAudio
         {
             ScriptSelected(sender, e);
             Selected(this, e);
+        }
+        private void ScriptItemUnFocused(object sender, RoutedEventArgs e)
+        {
+            ScriptUnSelected(sender, e);
+            UnSelected(this, e);
         }
         private void ScriptItemRemoved(object sender, RoutedEventArgs e)
         {

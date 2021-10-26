@@ -26,6 +26,7 @@ namespace WakfuAudio
     {
         public Monster monster;
         public Animation animSelected;
+        public List<LuaScript> scriptSelection = new List<LuaScript>();
         public Dictionary<Animation, AnimItem> items = new Dictionary<Animation, AnimItem>();
         private SwfDecompiler decompiler;
 
@@ -109,7 +110,9 @@ namespace WakfuAudio
                 var item = new AnimItem(anim, this);
                 item.Tag = anim;
                 item.Selected += new RoutedEventHandler(AnimItemSelected);
+                item.UnSelected += new RoutedEventHandler(AnimItemUnSelected);
                 item.ScriptSelected += new RoutedEventHandler(ScriptItemSelected);
+                item.ScriptUnSelected += new RoutedEventHandler(ScriptItemUnSelected);
                 item.ScriptRemoved += new RoutedEventHandler(ScriptRemoved);
                 AnimBin.Children.Add(item);
                 items.Add(anim, item);
@@ -154,7 +157,16 @@ namespace WakfuAudio
         {
             var item = sender as ScriptItem;
             Database.GetOrCreate(item.script, out LuaScript script);
+            scriptSelection.Add(script);
             ScriptEdition.Update(script);
+        }
+        private void ScriptItemUnSelected(object sender, RoutedEventArgs e)
+        {
+            var item = sender as ScriptItem;
+            Database.GetOrCreate(item.script, out LuaScript script);
+            scriptSelection.Remove(script);
+            if (scriptSelection.Count == 0)
+                ScriptEdition.Update(null);
         }
         private void ScriptRemoved(object sender, RoutedEventArgs e)
         {
@@ -168,6 +180,10 @@ namespace WakfuAudio
         {
             var anim = (sender as AnimItem).Tag as Animation;
             animSelected = anim;
+        }
+        private void AnimItemUnSelected(object sender, RoutedEventArgs e)
+        {
+            var anim = (sender as AnimItem).Tag as Animation;
         }
         private void OpenFlaClick(object sender, RoutedEventArgs e)
         {
