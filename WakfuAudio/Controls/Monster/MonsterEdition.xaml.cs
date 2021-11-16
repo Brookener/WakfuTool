@@ -128,7 +128,11 @@ namespace WakfuAudio
                     break;
                 default:
                     bool bark = lua.type == ScriptType.mobBark;
-                    inte = new Integration(lua, bark ? monster.FirstBarkAsset() : monster.FirstSoundAsset(animSelected.animation.type));
+                    string id;
+                    {
+                        id = bark? monster.FirstBarkAsset() : monster.FirstSoundAsset(animSelected.animation.type);
+                    }
+                    inte = new Integration(lua, id);
                     break;
             }
             if (lua.integrations.Count > 0)

@@ -33,7 +33,7 @@ namespace WakfuAudio.Scripts.Classes
         }
         public void LoadFromSwf(SwfDecompiler decompiler)
         {
-            animations = decompiler.GetAnimations();
+            decompiler.GetAnimations().Where(x => !animations.ContainsKey(x.Key.Substring(2))).ToList().ForEach(x => animations.Add(x.Key, x.Value));
             animations.Values.ToList().ForEach(x => x.monster = this);
             JoinAllAnimations();
             lastSwfModification = File.GetLastWriteTime(SwfPath());

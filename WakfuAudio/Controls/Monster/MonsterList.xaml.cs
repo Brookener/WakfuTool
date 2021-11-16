@@ -43,10 +43,6 @@ namespace WakfuAudio
             update.Click += new RoutedEventHandler(CheckForMonstersToUpdate);
             ContextMenu.Items.Add(update);
 
-            //var names = new MenuItem() { Header = "Load Names", ToolTip = "Load monster names from CSV file. Format : monster_gfx_id, monster_admin_name" };
-            //names.Click += new RoutedEventHandler(LoadMonsterNamesClick);
-            //ContextMenu.Items.Add(names);
-
             var global = new MenuItem() { Header = "Load all from Swf files" };
             global.Click += new RoutedEventHandler(StartGlobalLoading);
             ContextMenu.Items.Add(global);
@@ -102,7 +98,7 @@ namespace WakfuAudio
                     groupItem.Items.Add(item);
                 }
 
-                groupItem.Visibility = groupItem.Items.Count == 0 ? Visibility.Collapsed : Visibility.Visible;
+                groupItem.Visibility = (groupItem.Items.Count == 0) ? Visibility.Collapsed : Visibility.Visible;
             }
         }
         public void UpdateList(string filter)

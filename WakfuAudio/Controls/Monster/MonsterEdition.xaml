@@ -94,6 +94,7 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
 
                     <!-- Header -->
@@ -139,8 +140,11 @@
                         </StackPanel>
                     </ScrollViewer>
 
+                    <Grid Grid.Row="3">
+                        
+                    </Grid>
                     <!-- Script Edition -->
-                    <local:ScriptEdition x:Name="ScriptEdition" Grid.Row="3" 
+                    <local:ScriptEdition x:Name="ScriptEdition" Grid.Row="4" 
                                   BorderThickness="5" BorderBrush="#99FFFFFF"
                                   Padding="5">
 

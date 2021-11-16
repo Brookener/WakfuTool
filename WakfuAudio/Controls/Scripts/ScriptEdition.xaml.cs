@@ -156,6 +156,11 @@ namespace WakfuAudio
         {
             CopyAssetName(sender, e);
         }
+        //private void NewScriptClick(object sender, RoutedEventArgs e)
+        //{
+        //    if (Int64.TryParse(NewScriptName.Text, out long id))
+        //        Update(Database.GetOrCreate(id.ToString()));
+        //}
 
         #endregion
 

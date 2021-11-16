@@ -51,6 +51,8 @@ namespace WakfuAudio
             ScriptPanel.SelectionChanged += new EventHandler(ScriptPanelSelectionChanged);
 
             Database.CheckIfMonstersAreUpToDate();
+
+            Database.parameters.audioPlayers?.ForEach(x => TheMixer.Add(x));
         }
         public static void ShowFileInExplorer(string file)
         {

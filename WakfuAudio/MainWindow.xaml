@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WakfuAudio"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="1200" Closed="OnClosed" Background="#FF415F68">
+        Title="MainWindow" Height="450" Width="1200" 
+        Closed="OnClosed" Background="#FF415F68">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
@@ -52,6 +53,11 @@
                     <local:AssetList x:Name="AssetPanel" BorderThickness="0">
                         
                     </local:AssetList>
+                </TabItem>
+                <TabItem Header="Mixer">
+                    <local:Mixer x:Name="TheMixer" Background="#19FFFFFF">
+                        
+                    </local:Mixer>
                 </TabItem>
             </TabControl>
             <TextBlock Grid.Row="1" x:Name="Infos" Margin="5">

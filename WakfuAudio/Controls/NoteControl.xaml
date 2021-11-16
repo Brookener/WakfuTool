@@ -41,7 +41,7 @@
         </Grid>
 
         <ScrollViewer Margin="5" Grid.Row="2" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-            <TextBox x:Name="Content" KeyUp="ContentKeyUp"
+            <TextBox x:Name="Content" KeyUp="ContentKeyUp" BorderThickness="3"
                  AcceptsReturn="True" AcceptsTab="True" Background="#FF172225" Foreground="White">
 
             </TextBox>

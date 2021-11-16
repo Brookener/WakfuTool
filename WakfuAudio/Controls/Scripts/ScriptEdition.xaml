@@ -7,117 +7,146 @@
              mc:Ignorable="d" 
              d:DesignHeight="150" d:DesignWidth="400">
 
-    <Border BorderThickness="1" BorderBrush="#99FFFFFF" 
-            Background="#66303030" Padding="3">
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="auto"/>
-            </Grid.RowDefinitions>
-
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <!-- Ajout 
+        <Border BorderThickness="1" BorderBrush="#99FFFFFF" 
+            Background="#66303030" Padding="3" Margin="0,0,0,3">
             
-            
-            <!-- Header-->
-            <Grid Margin="10">
+            <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition Width="auto"/>
                     <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
 
-                <TextBox x:Name="IdBox" Background="{x:Null}"
+                <TextBox BorderThickness="0" VerticalAlignment="Center"
+                         x:Name="NewScriptName">
+                    
+                </TextBox>
+
+                <Button Grid.Column="1" BorderThickness="0" Padding="2,0,2,0" VerticalAlignment="Center" Click="NewScriptClick">
+                    New
+                </Button>
+                
+            </Grid>
+        </Border>
+        -->
+        <!-- Edition -->
+        <Border BorderThickness="1" BorderBrush="#99FFFFFF" 
+            Background="#66303030" Padding="3" Grid.Row="1">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- Header-->
+                <Grid Margin="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBox x:Name="IdBox" Background="{x:Null}"
                          IsReadOnly="True" BorderBrush="{x:Null}"
                          BorderThickness="0" Foreground="White" 
                          HorizontalAlignment="Center" FontSize="18" FontWeight="Bold">
 
-                </TextBox>
-                <Button Grid.Column="1" Click="OpenScriptClick" BorderThickness="0"
+                    </TextBox>
+                    <Button Grid.Column="1" Click="OpenScriptClick" BorderThickness="0"
                         ToolTip="Open script file, shift+click to show in explorer" 
                         HorizontalAlignment="Left" VerticalAlignment="Center"
                         Width="30" Height="30" x:Name="OpenScriptButton" Margin="10,0,0,0">
-                    <Button.Background>
-                        <ImageBrush ImageSource="../../Icons/EditIcon.png" Stretch="Uniform"/>
-                    </Button.Background>
+                        <Button.Background>
+                            <ImageBrush ImageSource="../../Icons/EditIcon.png" Stretch="Uniform"/>
+                        </Button.Background>
 
-                </Button>
+                    </Button>
 
-                <Grid Grid.Column="2">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="auto"/>
-                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
 
-                    <TextBlock Foreground="White" HorizontalAlignment="Right" Margin="0,0,5,0" VerticalAlignment="Center">
+                        <TextBlock Foreground="White" HorizontalAlignment="Right" Margin="0,0,5,0" VerticalAlignment="Center">
                     Roll Off :
-                    </TextBlock>
-                    <TextBox Grid.Column="1" x:Name="RolloffBox"  BorderThickness="0"
+                        </TextBlock>
+                        <TextBox Grid.Column="1" x:Name="RolloffBox"  BorderThickness="0"
                          HorizontalAlignment="Left" VerticalAlignment="Center"
                          Width="20" KeyDown="RolloffBoxKeyDown">
 
-                    </TextBox>
+                        </TextBox>
 
-                    <TextBlock Grid.Column="2" HorizontalAlignment="Right" 
+                        <TextBlock Grid.Column="2" HorizontalAlignment="Right" 
                            Foreground="White" Margin="0,0,5,0" VerticalAlignment="Center" 
                     >
                     Stop with Anim :
-                    </TextBlock>
-                    <CheckBox Grid.Column="3" x:Name="StopBox"
+                        </TextBlock>
+                        <CheckBox Grid.Column="3" x:Name="StopBox"
                           VerticalAlignment="Center" HorizontalAlignment="Left" Click="StopClicked">
 
-                    </CheckBox>
+                        </CheckBox>
+                    </Grid>
                 </Grid>
-            </Grid>
 
-            <!-- Asset List -->
-            <Grid Grid.Row="2">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
+                <!-- Asset List -->
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
 
 
-                <StackPanel x:Name="AssetList" Grid.Column="1"
+                    <StackPanel x:Name="AssetList" Grid.Column="1"
                          Background="{x:Null}" 
                          >
 
-                </StackPanel>
-            </Grid>
+                    </StackPanel>
+                </Grid>
 
-            <!-- Add Asset -->
-            <Border Grid.Row="3" BorderThickness="2" Background="Black" 
+                <!-- Add Asset -->
+                <Border Grid.Row="3" BorderThickness="2" Background="Black" 
                     BorderBrush="White" Margin="5">
-                <Button Click="AddAssetClick" 
+                    <Button Click="AddAssetClick" 
                     BorderThickness="0" Height="20">
-                    <Button.Background>
-                        <ImageBrush ImageSource="../../Icons/PlusIcon.png" Stretch="Uniform"/>
-                    </Button.Background>
+                        <Button.Background>
+                            <ImageBrush ImageSource="../../Icons/PlusIcon.png" Stretch="Uniform"/>
+                        </Button.Background>
 
-                </Button>
-            </Border>
+                    </Button>
+                </Border>
 
-            <!-- Create Script Button -->
-            <Button x:Name="CreateScriptButton" BorderThickness="3" Background="#FF415F68" 
+                <!-- Create Script Button -->
+                <Button x:Name="CreateScriptButton" BorderThickness="3" Background="#FF415F68" 
                     Foreground="White" FontSize="16" FontWeight="Bold" 
                     BorderBrush="White" Grid.Row="1" Visibility="Collapsed"
                     Grid.RowSpan="4" Click="CreateScriptClick">
-                Create
-            </Button>
-            
-            <!-- Title Panel -->
-            <Border Grid.RowSpan="5" Background="#FF415F68" BorderBrush="White"
+                    Create
+                </Button>
+
+                <!-- Title Panel -->
+                <Border Grid.RowSpan="5" Background="#FF415F68" BorderBrush="White"
                     BorderThickness="0" x:Name="TitlePanel" Visibility="Collapsed">
-                <Label HorizontalAlignment="Center" 
+                    <Label HorizontalAlignment="Center" 
                        VerticalAlignment="Center" FontSize="18" 
                        FontWeight="Bold" Background="{x:Null}" 
                        Foreground="#FF0C0C0C" x:Name="TitleLabel">
-                    Script Editor
-                </Label>
-            </Border>
+                        Script Editor
+                    </Label>
+                </Border>
 
-        </Grid>
-    </Border>
+            </Grid>
+        </Border>
+    </Grid>
+    
+    
 </UserControl>

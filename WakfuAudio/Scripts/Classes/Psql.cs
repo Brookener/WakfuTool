@@ -34,27 +34,27 @@ namespace WakfuAudio.Scripts.Classes
             return true;
         }
 
-        public static List<Monster.Datas> GetMonsterDatas(string id)
-        {
-            var datas = new List<Monster.Datas>();
-            var conn = new NpgsqlConnection(WakfuConnection);
-            if (!OpenConnection(conn))
-                return datas;
-            var text = "SELECT * FROM tbl_static_monster_characteristics WHERE monster_gfx_id = " + id + ";";
-            var cmd = new NpgsqlCommand(text, conn);
-            NpgsqlDataReader rs = cmd.ExecuteReader();
-            Monster.Datas data;
-            while (rs.Read())
-            {
-                data = new Monster.Datas()
-                {
-                    name = rs.GetString(rs.GetOrdinal("monster_gfx_id")),
-                };
-                datas.Add(data);
-            }
-
-            return datas;
-        }
+        //public static List<Monster.Datas> GetMonsterDatas(string id)
+        //{
+        //    var datas = new List<Monster.Datas>();
+        //    var conn = new NpgsqlConnection(WakfuConnection);
+        //    if (!OpenConnection(conn))
+        //        return datas;
+        //    var text = "SELECT * FROM tbl_static_monster_characteristics WHERE monster_gfx_id = " + id + ";";
+        //    var cmd = new NpgsqlCommand(text, conn);
+        //    NpgsqlDataReader rs = cmd.ExecuteReader();
+        //    Monster.Datas data;
+        //    while (rs.Read())
+        //    {
+        //        data = new Monster.Datas()
+        //        {
+        //            name = rs.GetString(rs.GetOrdinal("monster_gfx_id")),
+        //        };
+        //        datas.Add(data);
+        //    }
+        //
+        //    return datas;
+        //}
         public static Dictionary<int, string> GetMonsterNames()
         {
             var names = new Dictionary<int, string>();

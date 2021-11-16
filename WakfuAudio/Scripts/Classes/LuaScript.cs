@@ -72,6 +72,13 @@ namespace WakfuAudio.Scripts.Classes
             Database.datas.scripts.Remove(id);
             Database.datas.scripts.Add(id, this);
         }
+        public LuaScript(long newId)
+        {
+            id = newId.ToString();
+            type = DetectScriptTypeFromId(id);
+            Database.datas.scripts.Remove(id);
+            Database.datas.scripts.Add(id, this);
+        }
         public void RemoveAsset(string asset)
         {
             foreach(Integration inte in integrations.ToList())

@@ -159,8 +159,14 @@
     <Compile Include="Controls\AssetList.xaml.cs">
       <DependentUpon>AssetList.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\AudioPlayerControl.xaml.cs">
+      <DependentUpon>AudioPlayerControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\IntegrationItem.xaml.cs">
       <DependentUpon>IntegrationItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Mixer.xaml.cs">
+      <DependentUpon>Mixer.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Monster\MonsterEdition.xaml.cs">
       <DependentUpon>MonsterEdition.xaml</DependentUpon>
@@ -218,7 +224,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\AudioPlayerControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\IntegrationItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Mixer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -295,7 +309,13 @@
     </Compile>
     <Resource Include="Wakfu.ico" />
     <Resource Include="favicon.ico" />
+    <Content Include="Icons\Loop.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Icons\Merge.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Icons\Pause.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Icons\Play.png">
