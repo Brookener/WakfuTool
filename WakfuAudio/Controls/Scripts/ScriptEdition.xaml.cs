@@ -45,14 +45,24 @@ namespace WakfuAudio
                 TitleLabel.Content = "Script Editor";
                 return;
             }
-            if(script.type == ScriptType.special)
+            TypeBox.Text = script.type.ToString();
+            switch(script.type)
             {
-                TitlePanel.Visibility = Visibility.Visible;
-                TitleLabel.Content = "Special Script";
-                return;
+                default:
+                    TitlePanel.Visibility = Visibility.Collapsed;
+                    Parameters.Visibility = Visibility.Visible;
+                    break;
+                case ScriptType.special:
+                    TitlePanel.Visibility = Visibility.Visible;
+                    TitleLabel.Content = "Special Script";
+                    return;
+                case ScriptType.dialog:
+                    Parameters.Visibility = Visibility.Collapsed;
+                    TitlePanel.Visibility = Visibility.Collapsed;
+                    Parameters.Visibility = Visibility.Visible;
+                    break;
             }
 
-            TitlePanel.Visibility = Visibility.Collapsed;
 
             IdBox.Text = script.id;
             StopBox.IsChecked = script.stop;
@@ -62,12 +72,14 @@ namespace WakfuAudio
             if (script.ScriptFileExists())
             {
                 CreateScriptButton.Visibility = Visibility.Collapsed;
+                Parameters.Visibility = Visibility.Visible;
                 OpenScriptButton.Visibility = Visibility.Visible;
             }
             else
             {
                 CreateScriptButton.Visibility = Visibility.Visible;
                 OpenScriptButton.Visibility = Visibility.Collapsed;
+                Parameters.Visibility = Visibility.Collapsed;
             }
         }
         public void UpdateAssetList()
@@ -156,11 +168,6 @@ namespace WakfuAudio
         {
             CopyAssetName(sender, e);
         }
-        //private void NewScriptClick(object sender, RoutedEventArgs e)
-        //{
-        //    if (Int64.TryParse(NewScriptName.Text, out long id))
-        //        Update(Database.GetOrCreate(id.ToString()));
-        //}
 
         #endregion
 

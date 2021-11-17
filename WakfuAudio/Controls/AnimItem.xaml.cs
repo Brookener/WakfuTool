@@ -58,7 +58,8 @@ namespace WakfuAudio
             bin.Children.Clear();
             foreach(KeyValuePair<string, List<int>> script in scripts)
             {
-                var item = new ScriptItem(script.Key, type, this, script.Value);
+                var item = new ScriptItem();
+                item.Load(script.Key, type, this, script.Value);
                 item.Margin = new Thickness(2);
                 item.GotFocus += new RoutedEventHandler(ScriptItemFocused);
                 item.LostFocus += new RoutedEventHandler(ScriptItemUnFocused);

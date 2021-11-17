@@ -24,7 +24,7 @@ namespace WakfuAudio.Scripts.Classes
         {
             LoadParameters();
             LoadDatas();
-            LoadNames();
+            LoadMonsterDatas();
             LoadNotes();
             //allApsIds = AllApsScriptId();
         }
@@ -276,21 +276,47 @@ namespace WakfuAudio.Scripts.Classes
         {
             return ScriptFolder() + @"\particles";
         }
+        public static string DialogFolder()
+        {
+            return ScriptFolder() + @"\interactiveDialogs";
+        }
+        public static string FullPathOfScriptOfType(string script)
+        {
+            var array = Directory.GetFiles(ScriptFolder(), script + "*", SearchOption.AllDirectories);
+
+            return (array.Length > 0) ? array[0] : "";
+        }
+        public static string FullPathOfScriptOfType(string script, ScriptType type)
+        {
+            switch (type)
+            {
+                default:
+                    return FullPathOfAnmScript(script);
+                case ScriptType.aps:
+                    return FullPathOfApsScript(script);
+                case ScriptType.dialog:
+                    return FullPathOfDialogScript(script);
+            }
+        }
         public static string FullPathOfAnmScript(string script)
         {
             return AnmFolder() + @"\" + script + ".lua";
         }
-        public static string FullPathOfApScript(string script)
+        public static string FullPathOfApsScript(string script)
         {
             return ApsFolder() + @"\" + script + ".lua";
-        } 
+        }
+        public static string FullPathOfDialogScript(string script)
+        {
+            return DialogFolder() + @"\" + script + ".lua";
+        }
         public static bool AnmScriptExists(string script)
         {
             return File.Exists(FullPathOfAnmScript(script));
         }
         public static bool ApsScriptExists(string script)
         {
-            return File.Exists(FullPathOfApScript(script));
+            return File.Exists(FullPathOfApsScript(script));
         }
         public static bool ScriptExists(string script)
         {
@@ -415,17 +441,25 @@ namespace WakfuAudio.Scripts.Classes
 
         #endregion
 
-        #region Monster Names
+        #region Monster Datas
 
-        public static Dictionary<int, string> monsterNames = new Dictionary<int, string>();
-        public static void LoadNames()
+        public static Dictionary<int, Monster.Datas> monsterDatas = new Dictionary<int, Monster.Datas>();
+        public static void LoadMonsterDatas()
         {
-            monsterNames = Psql.GetMonsterNames();
+            monsterDatas = Psql.GetMonsterDatas();
         }
         public static string NameOf(string id)
         {
-            if (id.Length > 4 && Int32.TryParse(id.Substring(id.Length - 4), out int monsterId) && monsterNames.ContainsKey(monsterId))
-                return monsterNames[monsterId];
+            if (id.Length > 4 && Int32.TryParse(id.Substring(id.Length - 4), out int monsterId) && monsterDatas.ContainsKey(monsterId))
+                return monsterDatas[monsterId].name;
+            else
+                return "";
+
+        }
+        public static string DialogOf(string id)
+        {
+            if (id.Length > 4 && Int32.TryParse(id.Substring(id.Length - 4), out int monsterId) && monsterDatas.ContainsKey(monsterId))
+                return monsterDatas[monsterId].dialog;
             else
                 return "";
 
@@ -444,10 +478,15 @@ namespace WakfuAudio.Scripts.Classes
         {
             return Directory.GetFiles(ApsFolder());
         }
+        public static string[] AllDialogScriptFiles()
+        {
+            return Directory.GetFiles(DialogFolder());
+        }
         public static List<string> AllScriptFiles()
         {
             var list = AllAnimScriptFiles().ToList();
             list.AddRange(AllApsScriptFiles());
+            list.AddRange(AllDialogScriptFiles());
             return list;
         }
         public static List<string> AllAnimScriptId()
@@ -505,8 +544,7 @@ namespace WakfuAudio.Scripts.Classes
         #endregion
 
         #region Script Management
-
-        public static bool GetOrCreate(string id, out LuaScript script)
+        public static bool GetOrExtract(ScriptType type, string id, out LuaScript script)
         {
             if (datas.scripts.ContainsKey(id))
             {
@@ -515,7 +553,20 @@ namespace WakfuAudio.Scripts.Classes
             }
             else
             {
-                script = new LuaScript(FullPathOfAnmScript(id));
+                script = new LuaScript(FullPathOfScriptOfType(id, type));
+                return false;
+            }
+        }
+        public static bool GetOrExtract(string id, out LuaScript script)
+        {
+            if (datas.scripts.ContainsKey(id))
+            {
+                script = datas.scripts[id];
+                return true;
+            }
+            else
+            {
+                script = new LuaScript(FullPathOfScriptOfType(id));
                 return false;
             }
         }
@@ -532,10 +583,14 @@ namespace WakfuAudio.Scripts.Classes
                 return false;
             }
         }
-        public static LuaScript GetOrCreate(string id)
+        public static LuaScript GetOrExtract(ScriptType type, string id)
         {
-            GetOrCreate(id, out LuaScript script);
+            GetOrExtract(type, id, out LuaScript script);
             return script;
+        }
+        public static LuaScript GetOrExtract(string id)
+        {
+            return GetOrExtract(ScriptType.mobAnim, id);
         }
         public static LuaScript GetOrCreate(ScriptType type, string id)
         {
@@ -550,7 +605,7 @@ namespace WakfuAudio.Scripts.Classes
         {
             foreach(string script in AllScriptFiles())
             {
-                GetOrCreate(script);
+                GetOrExtract(script);
             }
         }
         public static bool IsScriptUsed(LuaScript script)
@@ -559,7 +614,7 @@ namespace WakfuAudio.Scripts.Classes
         }
         public static bool IsScriptUsed(string id, out LuaScript script)
         {
-            script = GetOrCreate(id);
+            script = GetOrExtract(id);
             foreach(Monster m in datas.monsters.Values)
                 if (m.UsesLuaScript(id))
                     return true;
@@ -595,18 +650,11 @@ namespace WakfuAudio.Scripts.Classes
         public static bool AssetFile(string asset, out string file)
         {
             file = "";
-            try
+            var files = Directory.GetFiles(ExportsFolder(), asset + ".ogg", SearchOption.AllDirectories);
+            if (files.Length > 0)
             {
-                var files = Directory.GetFiles(ExportsFolder(), asset + ".ogg", SearchOption.AllDirectories);
-                if (files.Length > 0)
-                {
-                    file = files[0];
-                    return true;
-                }
-            }
-            catch
-            {
-
+                file = files[0];
+                return true;
             }
             return false;
         }

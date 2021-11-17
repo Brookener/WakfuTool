@@ -140,9 +140,13 @@
                         </StackPanel>
                     </ScrollViewer>
 
-                    <Grid Grid.Row="3">
-                        
-                    </Grid>
+                    <Button Grid.Row="3" Click="InteractiveDialogClick" 
+                            x:Name="DialogButton" BorderThickness="0" 
+                            Background="#FF50808F" Foreground="White"
+                            Margin="5" FontSize="16">
+                        Interactive Dialog :
+                    </Button>
+                    
                     <!-- Script Edition -->
                     <local:ScriptEdition x:Name="ScriptEdition" Grid.Row="4" 
                                   BorderThickness="5" BorderBrush="#99FFFFFF"

@@ -48,11 +48,15 @@ namespace WakfuAudio.Scripts.Classes
             foreach (string folder in Directory.GetDirectories(ExportPath()))
                 Directory.Delete(folder, true);
         }
-        public static void ClearAllSwf()
+        public static async Task ClearAllSwf()
         {
             foreach (string file in Directory.GetFiles(FolderPath()))
                 if (file.Substring(file.Length - 4) == ".swf")
+                {
+                    if (Utils.FileInUse(file))
+                        await Task.Delay(10);
                     File.Delete(file);
+                }
         }
         public static async Task Load(string swfFile)
         {
@@ -61,7 +65,7 @@ namespace WakfuAudio.Scripts.Classes
                 MessageBox.Show("Can't find swf file :\n" + swfFile);
                 return;
             }
-            ClearAllSwf();
+            await ClearAllSwf();
             await ClearAllExports();
             var newFile = FolderPath() + @"\" + ExtractFileName(swfFile);
             File.Copy(swfFile, newFile);

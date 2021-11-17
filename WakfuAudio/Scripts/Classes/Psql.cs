@@ -55,17 +55,27 @@ namespace WakfuAudio.Scripts.Classes
         //
         //    return datas;
         //}
-        public static Dictionary<int, string> GetMonsterNames()
+        public static Dictionary<int, Monster.Datas> GetMonsterDatas()
         {
-            var names = new Dictionary<int, string>();
+            var names = new Dictionary<int, Monster.Datas>();
             var conn = new NpgsqlConnection(WakfuConnection);
             if (!OpenConnection(conn))
                 return names;
-            var text = "SELECT * FROM tbl_static_monster_characteristics;";
+            var text = "SELECT monster_id as id, monster_admin_name as name, monster_illustration_name as illu FROM tbl_static_monster_characteristics;";
+            //var text = "SELECT * FROM tbl_static_monster_characteristics;";
             var cmd = new NpgsqlCommand(text, conn);
             NpgsqlDataReader rs = cmd.ExecuteReader();
+            Monster.Datas data;
             while (rs.Read())
-                names.Add(rs.GetInt32(rs.GetOrdinal("monster_id")), rs.GetString(rs.GetOrdinal("monster_admin_name")));
+            {
+                data = new Monster.Datas()
+                {
+                    id = rs.GetInt32(rs.GetOrdinal("id")),
+                    name = rs.GetString(rs.GetOrdinal("name")),
+                    dialog = rs.IsDBNull(rs.GetOrdinal("illu")) ? "" : rs.GetString(rs.GetOrdinal("illu")),
+                };
+                names.Add(data.id, data);
+            }
 
             return names;
         }

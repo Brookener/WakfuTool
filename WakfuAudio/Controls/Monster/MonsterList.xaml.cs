@@ -85,6 +85,7 @@ namespace WakfuAudio
                     var monster = Database.datas.monsters.ContainsKey(id) ? Database.datas.monsters[id] : new Monster(id, groupName, type);
                     if(monster.Name == "")
                         monster.Name = Database.NameOf(id);
+                    monster.LoadInteractiveDialog();
                     var item = new TreeViewItem()
                     {
                         Header = monster.FullName(),

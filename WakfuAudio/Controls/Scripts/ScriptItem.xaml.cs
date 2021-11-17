@@ -30,7 +30,11 @@ namespace WakfuAudio
 
         public RoutedEventHandler Removed;
 
-        public ScriptItem(string newScript, ScriptType newType, AnimItem newAnim, List<int> newFrames)
+        public ScriptItem()
+        {
+            
+        }
+        public void Load(string newScript, ScriptType newType, AnimItem newAnim, List<int> newFrames)
         {
             type = newType;
             animItem = newAnim;
@@ -51,7 +55,7 @@ namespace WakfuAudio
             FrameBox.Text = FrameChain();
             FrameBox.Background = initialFrameBackground;
             IdBox.Foreground = Database.ScriptExists(script) ? Constantes.White : Constantes.RedClear;
-            WarningIcon.Visibility = Database.GetOrCreate(script).HasMissingAsset() ? Visibility.Visible : Visibility.Collapsed;
+            WarningIcon.Visibility = Database.GetOrExtract(script).HasMissingAsset() ? Visibility.Visible : Visibility.Collapsed;
         }
         public string FrameChain()
         {
@@ -128,7 +132,7 @@ namespace WakfuAudio
                 {
                     var newScript = result.ToString();
                     animItem.animation.Replace(script, newScript, type);
-                    animItem.editor.ScriptEdition.Update(Database.GetOrCreate(script));
+                    animItem.editor.ScriptEdition.Update(Database.GetOrExtract(script));
                     IdBox.Background = initialIdBackground;
                 }
                 else

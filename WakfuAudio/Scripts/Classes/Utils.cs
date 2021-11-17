@@ -86,6 +86,21 @@ namespace WakfuAudio.Scripts.Classes
             return ConvertImage(GetImage(url));
         }
 
+        public static bool FileInUse(string file)
+        {
+            try
+            {
+                using (FileStream stream = new FileInfo(file).Open(FileMode.Open, FileAccess.Read, FileShare.None))
+                {
+                    stream.Close();
+                }
+            }
+            catch (IOException)
+            {
+                return true;
+            }
+            return false;
+        }
         
     }
 }

@@ -73,7 +73,7 @@ namespace WakfuAudio.Scripts.Classes
             while(aps.ContainsKey(value.ToString()))
                 value += value >= 0 ? 1 : -1;
             var lua = AddApsScript(value.ToString());
-            lua.integrations = Database.GetOrCreate(model).CopyIntegrations(lua);
+            lua.integrations = Database.GetOrExtract(model).CopyIntegrations(lua);
             lua.SaveScript();
             return lua;
         }
@@ -98,7 +98,7 @@ namespace WakfuAudio.Scripts.Classes
             var dic = DictionnaryFromType(sType);
             dic.Add(newScript, dic[oldScript]);
             dic.Remove(oldScript);
-            Database.GetOrCreate(newScript).SaveScript();
+            Database.GetOrExtract(newScript).SaveScript();
         }
 
         #region Get Scripts
@@ -107,7 +107,7 @@ namespace WakfuAudio.Scripts.Classes
         {
             var list = new Dictionary<LuaScript, List<int>>();
             foreach (KeyValuePair<string, List<int>> sound in bark ? barks : sounds)
-                list.Add(Database.GetOrCreate(sound.Key), sound.Value);
+                list.Add(Database.GetOrExtract(sound.Key), sound.Value);
             return list;
         }
         public Dictionary<LuaScript, List<int>> GetScriptsFromFiles(bool bark)
@@ -120,7 +120,7 @@ namespace WakfuAudio.Scripts.Classes
         public Dictionary<LuaScript, List<int>> GetApsScripts()
         {
             var dic = new Dictionary<LuaScript, List<int>>();
-            aps.Keys.ToList().ForEach(x => dic.Add(Database.GetOrCreate(x), null));
+            aps.Keys.ToList().ForEach(x => dic.Add(Database.GetOrExtract(x), null));
             return dic;
         }
         public SortedDictionary<int, List<string>> GetSoundsAndBarksScriptByFrame()
@@ -156,7 +156,7 @@ namespace WakfuAudio.Scripts.Classes
             {
                 if (!list.ContainsKey(frame.Key))
                     list.Add(frame.Key, new List<LuaScript>());
-                list[frame.Key].AddRange(frame.Value.Select(x => Database.GetOrCreate(x)));
+                list[frame.Key].AddRange(frame.Value.Select(x => Database.GetOrExtract(x)));
             }
 
             foreach(KeyValuePair<int, List<LuaScript>> frame in list)

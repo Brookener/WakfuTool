@@ -20,6 +20,7 @@ namespace WakfuAudio.Scripts.Classes
         public List<Datas> datas = new List<Datas>();
         public Type type = Type.npcs;
 
+        public string interactiveDialog;
         public SortedDictionary<string, Animation> animations = new SortedDictionary<string, Animation>();
 
         public Monster(string newid, string newFamily, Type newType)
@@ -128,7 +129,7 @@ namespace WakfuAudio.Scripts.Classes
         }
         public void SplitAllAnimations()
         {
-            animations.Keys.ToList().ForEach(x => SplitAnimation(x));
+            animations.Where(x => !x.Value.splited).ToList().ForEach(x => SplitAnimation(x.Key));
         }
         public void SplitAnimation(string anim)
         {
@@ -185,6 +186,7 @@ namespace WakfuAudio.Scripts.Classes
         {
             return Database.FirstBarkAssetAvailable().ToString();
         }
+        
 
         #region utils
 
@@ -197,7 +199,7 @@ namespace WakfuAudio.Scripts.Classes
         public List<string> AllAssets()
         {
             var list = new List<string>();
-            AllScriptIds().Select(x => Database.GetOrCreate(x)).ToList().ForEach(x => list.AddRange(x.AllAssets()));
+            AllScriptIds().Select(x => Database.GetOrExtract(x)).ToList().ForEach(x => list.AddRange(x.AllAssets()));
             return list;
         }
         public bool IsScriptFileForThisMonster(string script)
@@ -293,11 +295,17 @@ namespace WakfuAudio.Scripts.Classes
 
         #endregion
 
+        public void LoadInteractiveDialog()
+        {
+            interactiveDialog = Database.DialogOf(Id);
+        }
+
         [Serializable]
         public struct Datas
         {
             public int id;
             public string name;
+            public string dialog;
         }
 
         public enum Type { npcs, players, pets}

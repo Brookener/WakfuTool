@@ -26,11 +26,21 @@ namespace WakfuAudio.Scripts.Classes
             Database.datas.scripts.Remove(id);
             Database.datas.scripts.Add(id, this);
 
-            if (Utils.StringContains(scriptFile, "particles"))
-                type = ScriptType.aps;
-            else
-                type = DetectScriptTypeFromId(id);
-
+            switch(new FileInfo(scriptFile).Directory.Name)
+            {
+                default:
+                    type = DetectScriptTypeFromId(id);
+                    break;
+                case "anm":
+                    type = DetectScriptTypeFromId(id);
+                    break;
+                case "particles":
+                    type = ScriptType.aps;
+                    break;
+                case "interactiveDialogs":
+                    type = ScriptType.dialog;
+                    break;
+            }
 
             if (!ScriptFileExists())
                 return;
@@ -53,17 +63,21 @@ namespace WakfuAudio.Scripts.Classes
                         rolloff = ExtractApsRollOff(fileContent);
                         intes = ExtractApsIntegrations(fileContent);
                         break;
+                    case ScriptType.dialog:
+                        intes = ExtractDialogIntegrations(fileContent);
+                        break;
                 }
 
-                if (intes.Length % 2 == 0)
-                    for (int i = 0; i < intes.Length; i += 2)
-                    {
-                        var inte = new Integration(this, intes[i]);
+                for (int i = 0; i < intes.Length; i += 2)
+                {
+                    var inte = new Integration(this, intes[i]);
+                    if(i==intes.Length)
+                        inte.SetVolume(intes[i - 1]);
+                    else
                         inte.SetVolume(intes[i + 1]);
-                        integrations.Add(inte);
-                    }
+                    integrations.Add(inte);
+                }
             }
-                
         }
         public LuaScript(ScriptType newType, string newId)
         {
@@ -143,10 +157,15 @@ namespace WakfuAudio.Scripts.Classes
 
         public string FilePath()
         {
-            if (type == ScriptType.aps)
-                return Database.FullPathOfApScript(id);
-            else
-                return Database.FullPathOfAnmScript(id);
+            switch (type)
+            {
+                default:
+                    return Database.FullPathOfAnmScript(id);
+                case ScriptType.aps:
+                    return Database.FullPathOfApsScript(id);
+                case ScriptType.dialog:
+                    return Database.FullPathOfDialogScript(id);
+            }
         }
         public string AssetVolumeChain()
         {
@@ -265,6 +284,25 @@ namespace WakfuAudio.Scripts.Classes
                 first++;
             return first.ToString();
         }
+        public string FirstDialogAsset()
+        {
+            string chain = "";
+            for (int i = id.Length - 1; i >= 0; i--)
+            {
+                if (!Int32.TryParse(id[i].ToString(), out int result))
+                    break;
+                chain = chain.Insert(0, result.ToString());
+            }
+            while (chain.Length < 9)
+                chain = chain.Insert(0, "0");
+
+            chain = chain.Insert(0, "320");
+            chain += "001";
+            var value = Int64.Parse(chain);
+            while (AllAssets().Contains(value.ToString()))
+                value++;
+            return value.ToString();
+        }
         public Integration GetIntegration(string asset)
         {
             return integrations.Where(x => x.asset == asset).First();
@@ -339,6 +377,10 @@ namespace WakfuAudio.Scripts.Classes
             }
             return values;
         }
+        public static string[] ExtractDialogIntegrations(string script)
+        {
+            return Utils.GetStringFromPaterns(script, "(", ")").Split(',');
+        }
         public static int ExtractAnimRollOff(string script)
         {
             var r = Utils.GetStringFromPaterns(script, "rollOffPreset=", "\n");
@@ -372,5 +414,5 @@ namespace WakfuAudio.Scripts.Classes
 
     }
 
-    public enum ScriptType { mobAnim, playerAnim, mobBark, playerBark, sfx, aps, special, none}
+    public enum ScriptType { mobAnim, playerAnim, mobBark, playerBark, sfx, aps, special, dialog, none}
 }

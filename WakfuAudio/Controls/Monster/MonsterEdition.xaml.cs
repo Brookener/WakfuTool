@@ -70,6 +70,8 @@ namespace WakfuAudio
             animSelected = null;
             if(monster != null)
             {
+                DialogButton.Visibility = monster.interactiveDialog != "" ? Visibility.Visible : Visibility.Collapsed;
+                DialogButton.Content = "Interactive Dialog : " + monster.interactiveDialog;
                 decompiler = new SwfDecompiler(monster.SwfPath());
                 SaveButton.Visibility = Visibility.Visible;
                 RefreshButton.Visibility = Visibility.Visible;
@@ -123,17 +125,19 @@ namespace WakfuAudio
             Integration inte;
             switch (lua.type)
             {
+                default:
+                    inte = new Integration(lua, monster.FirstSoundAsset(animSelected.animation.type));
+                    break;
+                case ScriptType.mobBark:
+                    inte = new Integration(lua, monster.FirstBarkAsset());
+                    break;
                 case ScriptType.aps:
                     inte = new Integration(lua, lua.FirstApsAsset("410"));
                     break;
-                default:
-                    bool bark = lua.type == ScriptType.mobBark;
-                    string id;
-                    {
-                        id = bark? monster.FirstBarkAsset() : monster.FirstSoundAsset(animSelected.animation.type);
-                    }
-                    inte = new Integration(lua, id);
+                case ScriptType.dialog:
+                    inte = new Integration(lua, lua.FirstDialogAsset());
                     break;
+                
             }
             if (lua.integrations.Count > 0)
                 inte.volume = lua.integrations[lua.integrations.Count - 1].volume;
@@ -160,14 +164,14 @@ namespace WakfuAudio
         private void ScriptItemSelected(object sender, RoutedEventArgs e)
         {
             var item = sender as ScriptItem;
-            Database.GetOrCreate(item.script, out LuaScript script);
+            Database.GetOrExtract(item.script, out LuaScript script);
             scriptSelection.Add(script);
             ScriptEdition.Update(script);
         }
         private void ScriptItemUnSelected(object sender, RoutedEventArgs e)
         {
             var item = sender as ScriptItem;
-            Database.GetOrCreate(item.script, out LuaScript script);
+            Database.GetOrExtract(item.script, out LuaScript script);
             scriptSelection.Remove(script);
             //if (scriptSelection.Count == 0)
             //    ScriptEdition.Update(null);
@@ -257,7 +261,10 @@ namespace WakfuAudio
             };
             Clipboard.SetText(String.Join("_", name.Where(x => x != "")));
         }
-
+        private void InteractiveDialogClick(object sender, RoutedEventArgs e)
+        {
+            ScriptEdition.Update(Database.GetOrExtract(ScriptType.dialog, monster.interactiveDialog));
+        }
 
         #endregion
 
@@ -274,5 +281,6 @@ namespace WakfuAudio
 
         #endregion
 
+        
     }
 }
