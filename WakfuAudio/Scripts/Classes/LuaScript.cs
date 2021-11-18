@@ -68,10 +68,10 @@ namespace WakfuAudio.Scripts.Classes
                         break;
                 }
 
-                for (int i = 0; i < intes.Length; i += 2)
+                for (int i = 0; i < intes.Length- 1; i += 2)
                 {
                     var inte = new Integration(this, intes[i]);
-                    if(i==intes.Length)
+                    if(i==intes.Length - 1)
                         inte.SetVolume(intes[i - 1]);
                     else
                         inte.SetVolume(intes[i + 1]);
@@ -250,16 +250,13 @@ namespace WakfuAudio.Scripts.Classes
         }
         public List<Animation> AnimsUsing()
         {
-            var list = new List<Animation>();
-            foreach (Monster m in Database.datas.monsters.Values)
-                foreach (Animation anim in m.animations.Values)
-                    if (anim.AllScriptIds().Contains(id))
-                        list.Add(anim);
-            return list;
+            return Database.datas.monsters.Values.SelectMany(x => x.animations.Values).Where(x => x.AllScriptIds().Contains(id)).ToList();
         }
-        public IEnumerable<Monster> MonstersUsing()
+        public List<Monster> MonstersUsing()
         {
-            return AnimsUsing().Select(x => x.monster).Distinct();
+            var list = AnimsUsing().Select(x => x.monster).Distinct().ToList();
+            list.AddRange(Database.datas.monsters.Values.Where(x => x.interactiveDialog == id));
+            return list;
         }
         public bool SearchFilter(string patern)
         {
@@ -271,7 +268,7 @@ namespace WakfuAudio.Scripts.Classes
         }
         public List<string> AllAssets()
         {
-            return integrations.Select(x => x.asset).ToList();
+            return integrations.Select(x => x.asset).Where(x => (x != "") && (x != null)).ToList();
         }
         public bool ScriptFileExists()
         {

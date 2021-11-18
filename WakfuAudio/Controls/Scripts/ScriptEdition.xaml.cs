@@ -59,7 +59,6 @@ namespace WakfuAudio
                 case ScriptType.dialog:
                     Parameters.Visibility = Visibility.Collapsed;
                     TitlePanel.Visibility = Visibility.Collapsed;
-                    Parameters.Visibility = Visibility.Visible;
                     break;
             }
 

@@ -544,6 +544,7 @@ namespace WakfuAudio.Scripts.Classes
         #endregion
 
         #region Script Management
+
         public static bool GetOrExtract(ScriptType type, string id, out LuaScript script)
         {
             if (datas.scripts.ContainsKey(id))
@@ -590,7 +591,7 @@ namespace WakfuAudio.Scripts.Classes
         }
         public static LuaScript GetOrExtract(string id)
         {
-            return GetOrExtract(ScriptType.mobAnim, id);
+            return GetOrExtract(id, out LuaScript lua) ? lua : null;
         }
         public static LuaScript GetOrCreate(ScriptType type, string id)
         {
@@ -603,7 +604,7 @@ namespace WakfuAudio.Scripts.Classes
         }
         public static void LoadAllScriptsFromFolder()
         {
-            foreach(string script in AllScriptFiles())
+            foreach(string script in AllScriptId())
             {
                 GetOrExtract(script);
             }
@@ -634,11 +635,31 @@ namespace WakfuAudio.Scripts.Classes
         {
             return datas.scripts.Values.Where(x => x.AllAssets().Contains(asset));
         }
-        public static Dictionary<string, List<LuaScript>> AssetInScriptsDictionnary()
+        public static Dictionary<string, List<string>> AssetInScriptsDictionnary()
         {
-            var dic = new Dictionary<string, List<LuaScript>>();
-            foreach (string asset in AllAssetsReferences())
-                dic.Add(asset, ScriptsUsingsAsset(asset)?.ToList());
+            var dic = new Dictionary<string, List<string>>();
+            foreach(LuaScript script in datas.scripts.Values)
+                foreach(string asset in script.AllAssets())
+                {
+                    if (!dic.ContainsKey(asset))
+                        dic.Add(asset, new List<string>());
+                    dic[asset].Add(script.id);
+                }
+
+            return dic;
+        }
+        public static Dictionary<string, List<Monster>> MonstersUsedInScripts()
+        {
+            var dic = new Dictionary<string, List<Monster>>();
+            foreach(Monster monster in datas.monsters.Values)
+            {
+                foreach(string script in monster.AllScriptIds())
+                {
+                    if (!dic.ContainsKey(script))
+                        dic.Add(script, new List<Monster>());
+                    dic[script].Add(monster);
+                }
+            }
             return dic;
         }
         
@@ -650,6 +671,8 @@ namespace WakfuAudio.Scripts.Classes
         public static bool AssetFile(string asset, out string file)
         {
             file = "";
+            if (asset == null)
+                return false;
             var files = Directory.GetFiles(ExportsFolder(), asset.Replace("\r", "") + ".ogg", SearchOption.AllDirectories);
             if (files.Length > 0)
             {
@@ -697,7 +720,7 @@ namespace WakfuAudio.Scripts.Classes
         }
         public static IEnumerable<string> AllAssetId()
         {
-            return AllAssetFiles().Select(x => FileNameFromPath(x));
+            return AllAssetFiles().Select(x => FileNameFromPath(x)).Distinct();
         }
         public static IEnumerable<string> AllAssetId(ScriptType script, AnimType anim)
         {
@@ -713,7 +736,15 @@ namespace WakfuAudio.Scripts.Classes
         }
         public static IEnumerable<string> AllUnreferencedAssets()
         {
-            return AllAssetId().Where(x => !AllAssetsReferences().Contains(x));
+            var assets = AllAssetsReferences().ToList();
+            var list = AllAssetId().ToList();
+            foreach(string id in list.ToList())
+                if (assets.Contains(id))
+                {
+                    assets.Remove(id);
+                    list.Remove(id);
+                }
+            return list;
         }
         public static Dictionary<string, List<string>> SourcesByAsset()
         {
@@ -751,9 +782,7 @@ namespace WakfuAudio.Scripts.Classes
         {
             var split = path.Split('\\');
             var id = split[split.Length - 1];
-            int index = id.IndexOf(".");
-            if (index != -1)
-                id = id.Substring(0, index);
+            id = id.Substring(0, id.Length - 4);
             return id;
         }
         public static string FolderNameFromPath(string path)

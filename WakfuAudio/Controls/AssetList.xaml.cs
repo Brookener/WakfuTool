@@ -47,23 +47,19 @@ namespace WakfuAudio
             ResultBox.Text = "Loading...";
             await Task.Delay(10);
 
+            items.Clear();
             var list = Database.AllAssetsReferences().ToList();
             list.AddRange(Database.AllUnreferencedAssets());
 
-            NewAssetListItem(list.Where(x => !items.ContainsKey(x)));
-            var filteredList = items.Where(x => filter == "" || Utils.StringContains(x.Key, filter)).ToDictionary(x => x.Key, x => x.Value).Values;
 
-            AssetPanel.ItemsSource = null;
-            AssetPanel.ItemsSource = filteredList;
-            ResultBox.Text = filteredList .Count == 0 ? "" : filteredList.Count + " Results";
-        }
-        private void NewAssetListItem(IEnumerable<string> assets)
-        {
+            //NewAssetListItem(list.Where(x => !items.ContainsKey(x)));
+            //var filteredList = items.Where(x => filter == "" || Utils.StringContains(x.Key, filter)).ToDictionary(x => x.Key, x => x.Value).Values;
+
             var exports = Database.ExportFilesByAsset();
             var sourcesFiles = Database.SourcesByAsset();
-            var dic = Database.AssetInScriptsDictionnary().ToDictionary(x => x.Key, x => String.Join("\n", x.Value.Select(y => y.id)));
+            var dic = Database.AssetInScriptsDictionnary().ToDictionary(x => x.Key, x => String.Join("\n", x.Value));
 
-            foreach (string asset in assets)
+            foreach (string asset in list.Where(x => filter == "" || Utils.StringContains(x, filter)))
             {
                 items.Add(asset, new AssetListItem()
                 {
@@ -72,6 +68,27 @@ namespace WakfuAudio
                     AssetInGame = exports.ContainsKey(asset),
                     sources = sourcesFiles.ContainsKey(asset) ? sourcesFiles[asset] : new List<string>(),
                     Modification = exports.ContainsKey(asset) ? new FileInfo(exports[asset]).LastWriteTime.ToString() : "",
+                });
+            }
+
+            AssetPanel.ItemsSource = null;
+            AssetPanel.ItemsSource = items.Values;
+            ResultBox.Text = items.Count == 0 ? "" : items.Count + " Results";
+        }
+        private void NewAssetListItem(IEnumerable<string> assets)
+        {
+            var exports = Database.ExportFilesByAsset();
+            var sourcesFiles = Database.SourcesByAsset();
+            var dic = Database.AssetInScriptsDictionnary().ToDictionary(x => x.Key, x => String.Join("\n", x.Value));
+            foreach (string asset in assets)
+            {
+                items.Add(asset, new AssetListItem()
+                {
+                    //Asset = asset,
+                    //Usage = dic.ContainsKey(asset) ? dic[asset] : "",
+                    //AssetInGame = exports.ContainsKey(asset),
+                    //sources = sourcesFiles.ContainsKey(asset) ? sourcesFiles[asset] : new List<string>(),
+                    //Modification = exports.ContainsKey(asset) ? new FileInfo(exports[asset]).LastWriteTime.ToString() : "",
                 });
             }
             
@@ -110,7 +127,7 @@ namespace WakfuAudio
             public List<string> sources;
             public string SourcesCount
             {
-                get => sources.Count.ToString();
+                get => sources?.Count.ToString();
                 set => SourcesCount = value;
             }
             public string Modification { get; set; }

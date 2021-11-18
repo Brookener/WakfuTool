@@ -44,16 +44,22 @@ namespace WakfuAudio
         {
             LoadList(SearchPatern.Text);
         }
-        public async Task LoadList(string filter)
+        public async void LoadList(string filter)
         {
             ResultBox.Text = "Loading...";
             await Task.Delay(10);
             items.Clear();
+
+            var monstersByScript = Database.MonstersUsedInScripts();
+
             foreach (KeyValuePair<string, LuaScript> file in Database.datas.scripts)
             {
                 if (file.Value.SearchFilter(filter) && (CategoryFilter.SelectedIndex == 0 || CategoryFilter.SelectedValue.ToString() == file.Value.type.ToString()))
                 {
-                    var item = new LuaDataGridItem(file.Value);
+                    var item = new LuaDataGridItem(file.Value)
+                    {
+                        Usage = monstersByScript.ContainsKey(file.Value.id) ? String.Join("\n", monstersByScript[file.Value.id]) : "",
+                    };
                     items.Add(item);
                 }
             }
@@ -118,7 +124,7 @@ namespace WakfuAudio
             {
                 Id = script.id;
                 Type = script.type;
-                Usage = String.Join("\n", script.MonstersUsing().Select(x => x.Id));
+                //Usage = String.Join("\n", script.MonstersUsing().Select(x => x.Id));
             }
         }
     }
