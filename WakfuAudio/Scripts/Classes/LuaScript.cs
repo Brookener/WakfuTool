@@ -351,10 +351,11 @@ namespace WakfuAudio.Scripts.Classes
 
         public static string[] ExtractAnimIntegrations(string script)
         {
-            var chain = Utils.GetStringFromPaterns(script, "soundFileId=", "\n");
+            var chain = Utils.GetStringFromPaterns(script,"soundFileId=","\n");
+            chain = chain.Replace("\r", "");
             if(Int64.TryParse(chain, out long asset))
             {
-                var gain = Utils.GetStringFromPaterns(script, "gain=", "\n");
+                var gain = Utils.GetStringFromPaterns(script, new string[] { "gain=" }, new string[] { "\n", "\r" });
                 if(Int32.TryParse(gain, out int volume))
                 {
                     return new string[2] {chain, gain};

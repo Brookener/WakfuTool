@@ -28,6 +28,14 @@ namespace WakfuAudio.Scripts.Classes
                 return "";
             return text.Substring(start, end - start);
         }
+        public static string GetStringFromPaterns(string text, string[] startPatern, string[] endPatern)
+        {
+            var start = startPatern.Select(x => text.IndexOf(x) + x.Length).Min();
+            var end = endPatern.Select(x => text.IndexOf(x, start)).Min();
+            if (start == -1 || end == -1)
+                return "";
+            return text.Substring(start, end - start);
+        }
         public static string ReplaceBetweenPaterns(string text, string newText, string startPatern, string endPatern)
         {
             var start = text.IndexOf(startPatern) + startPatern.Length;

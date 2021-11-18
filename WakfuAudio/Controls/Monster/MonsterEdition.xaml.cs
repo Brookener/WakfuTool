@@ -26,7 +26,7 @@ namespace WakfuAudio
     {
         public Monster monster;
         public AnimItem animSelected;
-        public List<LuaScript> scriptSelection = new List<LuaScript>();
+        //public List<LuaScript> scriptSelection = new List<LuaScript>();
         public Dictionary<Animation, AnimItem> items = new Dictionary<Animation, AnimItem>();
         private SwfDecompiler decompiler;
 
@@ -165,14 +165,14 @@ namespace WakfuAudio
         {
             var item = sender as ScriptItem;
             Database.GetOrExtract(item.script, out LuaScript script);
-            scriptSelection.Add(script);
+            //scriptSelection.Add(script);
             ScriptEdition.Update(script);
         }
         private void ScriptItemUnSelected(object sender, RoutedEventArgs e)
         {
-            var item = sender as ScriptItem;
-            Database.GetOrExtract(item.script, out LuaScript script);
-            scriptSelection.Remove(script);
+            //var item = sender as ScriptItem;
+            //Database.GetOrExtract(item.script, out LuaScript script);
+            //scriptSelection.Remove(script);
             //if (scriptSelection.Count == 0)
             //    ScriptEdition.Update(null);
         }

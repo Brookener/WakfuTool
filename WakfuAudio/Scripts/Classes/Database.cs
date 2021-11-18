@@ -650,7 +650,7 @@ namespace WakfuAudio.Scripts.Classes
         public static bool AssetFile(string asset, out string file)
         {
             file = "";
-            var files = Directory.GetFiles(ExportsFolder(), asset + ".ogg", SearchOption.AllDirectories);
+            var files = Directory.GetFiles(ExportsFolder(), asset.Replace("\r", "") + ".ogg", SearchOption.AllDirectories);
             if (files.Length > 0)
             {
                 file = files[0];
