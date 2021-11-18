@@ -58,7 +58,8 @@ namespace WakfuAudio
                 {
                     var item = new LuaDataGridItem(file.Value)
                     {
-                        Usage = monstersByScript.ContainsKey(file.Value.id) ? String.Join("\n", monstersByScript[file.Value.id]) : "",
+                        Usage = monstersByScript.ContainsKey(file.Value.id) ? 
+                        String.Join("\n", monstersByScript[file.Value.id].Select(x => x.Id)) : "",
                     };
                     items.Add(item);
                 }

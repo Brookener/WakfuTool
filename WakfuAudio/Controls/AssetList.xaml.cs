@@ -48,50 +48,30 @@ namespace WakfuAudio
             await Task.Delay(10);
 
             items.Clear();
-            var list = Database.AllAssetsReferences().ToList();
-            list.AddRange(Database.AllUnreferencedAssets());
-
-
-            //NewAssetListItem(list.Where(x => !items.ContainsKey(x)));
-            //var filteredList = items.Where(x => filter == "" || Utils.StringContains(x.Key, filter)).ToDictionary(x => x.Key, x => x.Value).Values;
+            var list = Database.AssetFilesByIds();
 
             var exports = Database.ExportFilesByAsset();
             var sourcesFiles = Database.SourcesByAsset();
             var dic = Database.AssetInScriptsDictionnary().ToDictionary(x => x.Key, x => String.Join("\n", x.Value));
 
-            foreach (string asset in list.Where(x => filter == "" || Utils.StringContains(x, filter)))
+            foreach (KeyValuePair<string,string> asset in 
+                list.Where(x => 
+                (CategoryFilter.SelectedIndex == 0 || new FileInfo(x.Value).Directory.Name == CategoryFilter.SelectedValue.ToString()) &&
+                (filter == "" || Utils.StringContains(x.Key, filter))))
             {
-                items.Add(asset, new AssetListItem()
+                items.Add(asset.Key, new AssetListItem()
                 {
-                    Asset = asset,
-                    Usage = dic.ContainsKey(asset) ? dic[asset] : "",
-                    AssetInGame = exports.ContainsKey(asset),
-                    sources = sourcesFiles.ContainsKey(asset) ? sourcesFiles[asset] : new List<string>(),
-                    Modification = exports.ContainsKey(asset) ? new FileInfo(exports[asset]).LastWriteTime.ToString() : "",
+                    Asset = asset.Key,
+                    Usage = dic.ContainsKey(asset.Key) ? dic[asset.Key] : "",
+                    AssetInGame = exports.ContainsKey(asset.Key),
+                    sources = sourcesFiles.ContainsKey(asset.Key) ? sourcesFiles[asset.Key] : new List<string>(),
+                    Modification = exports.ContainsKey(asset.Key) ? new FileInfo(exports[asset.Key]).LastWriteTime.ToString() : "",
                 });
             }
 
             AssetPanel.ItemsSource = null;
             AssetPanel.ItemsSource = items.Values;
             ResultBox.Text = items.Count == 0 ? "" : items.Count + " Results";
-        }
-        private void NewAssetListItem(IEnumerable<string> assets)
-        {
-            var exports = Database.ExportFilesByAsset();
-            var sourcesFiles = Database.SourcesByAsset();
-            var dic = Database.AssetInScriptsDictionnary().ToDictionary(x => x.Key, x => String.Join("\n", x.Value));
-            foreach (string asset in assets)
-            {
-                items.Add(asset, new AssetListItem()
-                {
-                    //Asset = asset,
-                    //Usage = dic.ContainsKey(asset) ? dic[asset] : "",
-                    //AssetInGame = exports.ContainsKey(asset),
-                    //sources = sourcesFiles.ContainsKey(asset) ? sourcesFiles[asset] : new List<string>(),
-                    //Modification = exports.ContainsKey(asset) ? new FileInfo(exports[asset]).LastWriteTime.ToString() : "",
-                });
-            }
-            
         }
 
         #region Control Events 
@@ -114,7 +94,7 @@ namespace WakfuAudio
         }
         private void CategoryFilterDropdownClosed(object sender, EventArgs e)
         {
-            //LoadList();
+            LoadList();
         }
 
         #endregion

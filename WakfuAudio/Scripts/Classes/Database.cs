@@ -518,7 +518,7 @@ namespace WakfuAudio.Scripts.Classes
         {
             long id = 90000001;
 
-            var refs = AllAssetsReferences();
+            var refs = AllAssetIdsReferences();
             var assets = AllAssetId(ScriptType.mobBark, AnimType.none);
 
             while (refs.Contains(id.ToString()) || assets.Contains(id.ToString()))
@@ -726,17 +726,13 @@ namespace WakfuAudio.Scripts.Classes
         {
             return AllAssetFiles(script, anim).Select(x => FileNameFromPath(x));
         }
-        public static IEnumerable<string> AllAssetsReferences()
+        public static IEnumerable<string> AllAssetIdsReferences()
         {
             return datas.scripts.Values.SelectMany(x => x.AllAssets()).Distinct();
         }
-        public static bool DatasContainsAsset(string asset)
+        public static IEnumerable<string> AllUnreferencedAssetIdd()
         {
-            return AllAssetsReferences().Contains(asset);
-        }
-        public static IEnumerable<string> AllUnreferencedAssets()
-        {
-            var assets = AllAssetsReferences().ToList();
+            var assets = AllAssetIdsReferences().ToList();
             var list = AllAssetId().ToList();
             foreach(string id in list.ToList())
                 if (assets.Contains(id))
@@ -745,6 +741,22 @@ namespace WakfuAudio.Scripts.Classes
                     list.Remove(id);
                 }
             return list;
+        }
+        public static Dictionary<string, string> AssetFilesByIds()
+        {
+            var dic = new Dictionary<string, string>();
+            string id;
+            foreach (string s in AllAssetFiles())
+            {
+                id = FileNameFromPath(s);
+                if (!dic.ContainsKey(id))
+                    dic.Add(id, s);
+            }
+            return dic;
+        }
+        public static bool DatasContainsAsset(string asset)
+        {
+            return AllAssetIdsReferences().Contains(asset);
         }
         public static Dictionary<string, List<string>> SourcesByAsset()
         {
