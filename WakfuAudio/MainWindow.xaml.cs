@@ -52,7 +52,6 @@ namespace WakfuAudio
 
             Database.CheckIfMonstersAreUpToDate();
 
-            Database.parameters.audioPlayers?.ForEach(x => TheMixer.Add(x));
         }
         public static void ShowFileInExplorer(string file)
         {
@@ -65,7 +64,13 @@ namespace WakfuAudio
                 MessageBox.Show("Can't find .fla file :\n" + file);
         }
 
-        
+        private void SetupMixer()
+        {
+
+            Database.parameters.audioPlayers?.ForEach(x => TheMixer.Add(x));
+        }
+
+
         #region Window Events
 
         private void OnClosed(object sender, EventArgs e)

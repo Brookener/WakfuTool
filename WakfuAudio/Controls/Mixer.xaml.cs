@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -28,6 +29,12 @@ namespace WakfuAudio
 
         public void Add(string file)
         {
+            if (!File.Exists(file))
+            {
+                Database.parameters.audioPlayers.Remove(file);
+                Database.SaveParameters();
+                return;
+            }
             var player = new AudioPlayerControl(file);
             player.Height = 59;
             PlayerBin.Children.Add(player);
@@ -42,6 +49,8 @@ namespace WakfuAudio
         }
         public void New(string file)
         {
+            if (!File.Exists(file) || Database.parameters.audioPlayers.Contains(file))
+                return;
             Add(file);
             if (Database.parameters.audioPlayers == null)
                 Database.parameters.audioPlayers = new List<string>();

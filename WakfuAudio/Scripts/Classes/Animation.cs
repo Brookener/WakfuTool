@@ -52,6 +52,11 @@ namespace WakfuAudio.Scripts.Classes
         }
         public LuaScript AddApsScript(string apsId)
         {
+            if (aps.ContainsKey(apsId))
+            {
+                MessageBox.Show("This script is already present");
+                return null;
+            }
             if(!Database.GetOrCreate(ScriptType.aps, apsId, out LuaScript lua))
             {
                 var inte = new Integration(lua, lua.FirstApsAsset("410"));
