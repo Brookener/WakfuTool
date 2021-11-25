@@ -49,13 +49,17 @@ namespace WakfuAudio
             switch(script.type)
             {
                 default:
-                    TitlePanel.Visibility = Visibility.Collapsed;
-                    Parameters.Visibility = Visibility.Visible;
+                    if (LuaScript.Editable(script.type))
+                    {
+                        TitlePanel.Visibility = Visibility.Collapsed;
+                        Parameters.Visibility = Visibility.Visible;
+                    }
+                    else
+                    {
+                        TitlePanel.Visibility = Visibility.Visible;
+                        TitleLabel.Content = "Special Script";
+                    }
                     break;
-                case ScriptType.special:
-                    TitlePanel.Visibility = Visibility.Visible;
-                    TitleLabel.Content = "Special Script";
-                    return;
                 case ScriptType.dialog:
                     Parameters.Visibility = Visibility.Collapsed;
                     TitlePanel.Visibility = Visibility.Collapsed;

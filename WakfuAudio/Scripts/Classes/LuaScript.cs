@@ -25,8 +25,8 @@ namespace WakfuAudio.Scripts.Classes
             id = Database.FileNameFromPath(scriptFile);
             Database.datas.scripts.Remove(id);
             Database.datas.scripts.Add(id, this);
-
-            switch(new FileInfo(scriptFile).Directory.Name)
+            
+            switch (new FileInfo(scriptFile).Directory.Name)
             {
                 default:
                     type = DetectScriptTypeFromId(id);
@@ -47,36 +47,37 @@ namespace WakfuAudio.Scripts.Classes
 
             var fileContent = File.ReadAllText(FilePath());
             string[] intes;
+
             if (SpecialCase(id))
             {
                 type = ScriptType.special;
+                return;
             }
-            else
+            if (!Editable(type))
+                return;
+            switch (type)
             {
-                switch (type)
-                {
-                    default:
-                        rolloff = ExtractAnimRollOff(fileContent);
-                        intes = ExtractAnimIntegrations(fileContent);
-                        break;
-                    case ScriptType.aps:
-                        rolloff = ExtractApsRollOff(fileContent);
-                        intes = ExtractApsIntegrations(fileContent);
-                        break;
-                    case ScriptType.dialog:
-                        intes = ExtractDialogIntegrations(fileContent);
-                        break;
-                }
+                default:
+                    rolloff = ExtractAnimRollOff(fileContent);
+                    intes = ExtractAnimIntegrations(fileContent);
+                    break;
+                case ScriptType.aps:
+                    rolloff = ExtractApsRollOff(fileContent);
+                    intes = ExtractApsIntegrations(fileContent);
+                    break;
+                case ScriptType.dialog:
+                    intes = ExtractDialogIntegrations(fileContent);
+                    break;
+            }
 
-                for (int i = 0; i < intes.Length- 1; i += 2)
-                {
-                    var inte = new Integration(this, intes[i]);
-                    if(i==intes.Length - 1)
-                        inte.SetVolume(intes[i - 1]);
-                    else
-                        inte.SetVolume(intes[i + 1]);
-                    integrations.Add(inte);
-                }
+            for (int i = 0; i < intes.Length - 1; i += 2)
+            {
+                var inte = new Integration(this, intes[i]);
+                if (i == intes.Length - 1)
+                    inte.SetVolume(intes[i - 1]);
+                else
+                    inte.SetVolume(intes[i + 1]);
+                integrations.Add(inte);
             }
         }
         public LuaScript(ScriptType newType, string newId)
@@ -338,6 +339,30 @@ namespace WakfuAudio.Scripts.Classes
                 case "599": return ScriptType.sfx;
 
             }
+        }
+        public static bool Editable(ScriptType type)
+        {
+            switch (type)
+            {
+                default:
+                    return false;
+                case ScriptType.mobAnim:
+                    return true;
+                case ScriptType.mobBark:
+                    return true;
+                case ScriptType.aps:
+                    return true;
+                case ScriptType.dialog:
+                    return true;
+                case ScriptType.playerAnim:
+                    return true;
+                case ScriptType.sfx:
+                    return true;
+            }
+        }
+        public bool Editable()
+        {
+            return Editable(type);
         }
 
         
