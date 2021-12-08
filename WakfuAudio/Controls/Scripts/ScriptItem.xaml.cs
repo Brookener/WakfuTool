@@ -55,7 +55,7 @@ namespace WakfuAudio
             FrameBox.Text = FrameChain();
             FrameBox.Background = initialFrameBackground;
             IdBox.Foreground = Database.ScriptExists(script) ? Constantes.White : Constantes.RedClear;
-            if (Database.GetOrExtract(script, out LuaScript lua) && lua.Editable())
+            if (Database.GetOrExtractOrCreate(script, out LuaScript lua) && lua.Editable())
                 WarningIcon.Visibility = lua.HasMissingAsset() ? Visibility.Visible : Visibility.Collapsed;
             else
                 WarningIcon.Visibility = Visibility.Visible;

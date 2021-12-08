@@ -103,7 +103,7 @@ namespace WakfuAudio.Scripts.Classes
         {
             PlayAssetSource(volume);
         }
-
+       
         #endregion
 
     }
