@@ -518,10 +518,9 @@ namespace WakfuAudio.Scripts.Classes
         {
             long id = 90000001;
 
-            var refs = AllAssetIdsReferences();
-            var assets = AllAssetId(ScriptType.mobBark, AnimType.none);
-
-            while (refs.Contains(id.ToString()) || assets.Contains(id.ToString()))
+            var refs = AllAssetIdsReferences().ToList();
+            refs.AddRange(AllAssetId(ScriptType.mobBark, AnimType.none));
+            while (refs.Contains(id.ToString()))
                 id++;
 
             return id;

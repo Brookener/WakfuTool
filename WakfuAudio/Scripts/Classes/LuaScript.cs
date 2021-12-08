@@ -25,7 +25,13 @@ namespace WakfuAudio.Scripts.Classes
             id = Database.FileNameFromPath(scriptFile);
             Database.datas.scripts.Remove(id);
             Database.datas.scripts.Add(id, this);
-            
+
+            if (SpecialCase(id))
+            {
+                type = ScriptType.special;
+                return;
+            }
+
             switch (new FileInfo(scriptFile).Directory.Name)
             {
                 default:
@@ -48,11 +54,7 @@ namespace WakfuAudio.Scripts.Classes
             var fileContent = File.ReadAllText(FilePath());
             string[] intes;
 
-            if (SpecialCase(id))
-            {
-                type = ScriptType.special;
-                return;
-            }
+            
             if (!Editable(type))
                 return;
             switch (type)
@@ -422,6 +424,8 @@ namespace WakfuAudio.Scripts.Classes
         }
         public static bool SpecialCase(string script)
         {
+            if (script.Substring(0, 3) == "299")
+                return true;
             switch (script)
             {
                 default:

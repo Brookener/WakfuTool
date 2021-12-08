@@ -58,6 +58,7 @@ namespace WakfuAudio
                     {
                         TitlePanel.Visibility = Visibility.Visible;
                         TitleLabel.Content = "Special Script";
+                        return;
                     }
                     break;
                 case ScriptType.dialog:
