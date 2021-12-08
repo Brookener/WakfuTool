@@ -74,7 +74,7 @@ namespace WakfuAudio.Scripts.Classes
 
             for (int i = 0; i < intes.Length - 1; i += 2)
             {
-                var inte = new Integration(this, intes[i]);
+                var inte = new Integration(this, intes[i].Replace("\r", ""));
                 if (i == intes.Length - 1)
                     inte.SetVolume(intes[i - 1]);
                 else
