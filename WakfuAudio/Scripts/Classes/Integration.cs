@@ -101,7 +101,7 @@ namespace WakfuAudio.Scripts.Classes
         }
         public void PlayAssetSource()
         {
-            PlayAssetSource(volume);
+            PlayAssetSource(volume * 0.01);
         }
 
         #endregion
