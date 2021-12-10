@@ -31,8 +31,8 @@ namespace WakfuAudio
             InitializeComponent();
             Setup();
 
-            try { Editor.LoadMonster(Database.datas.monsters[Database.parameters.lastMonsterOpened]); }
-            catch { Editor.LoadMonster(null); }
+            //try { Editor.LoadMonster(Database.datas.monsters[Database.parameters.lastMonsterOpened]); }
+            //catch { Editor.LoadMonster(null); }
         }
         private void Setup()
         {

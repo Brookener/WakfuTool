@@ -164,7 +164,7 @@ namespace WakfuAudio
         private void ScriptItemSelected(object sender, RoutedEventArgs e)
         {
             var item = sender as ScriptItem;
-            Database.GetOrExtract(item.script, out LuaScript script);
+            Database.GetOrExtractOrCreate(item.script, out LuaScript script);
             //scriptSelection.Add(script);
             ScriptEdition.Update(script);
         }

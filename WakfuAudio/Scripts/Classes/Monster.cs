@@ -199,7 +199,7 @@ namespace WakfuAudio.Scripts.Classes
         public List<string> AllAssets()
         {
             var list = new List<string>();
-            AllScriptIds().Select(x => Database.GetOrExtract(x)).ToList().ForEach(x => list.AddRange(x.AllAssets()));
+            AllScriptIds().Select(x => Database.GetOrExtractOrCreate(x)).ToList().ForEach(x => list.AddRange(x.AllAssets()));
             return list;
         }
         public bool IsScriptFileForThisMonster(string script)

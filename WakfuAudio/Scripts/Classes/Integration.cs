@@ -84,7 +84,7 @@ namespace WakfuAudio.Scripts.Classes
         }
         public string[] AssetSources()
         {
-            return Directory.GetFiles(Database.SourcesFolder(), asset + "*", SearchOption.AllDirectories);
+            return Directory.GetFiles(Database.SourcesFolder(), asset.Replace("\r","") + "*", SearchOption.AllDirectories);
         }
         public string FirstAssetSource()
         {
@@ -103,7 +103,7 @@ namespace WakfuAudio.Scripts.Classes
         {
             PlayAssetSource(volume * 0.01);
         }
-
+       
         #endregion
 
     }

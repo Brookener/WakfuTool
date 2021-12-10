@@ -518,10 +518,9 @@ namespace WakfuAudio.Scripts.Classes
         {
             long id = 90000001;
 
-            var refs = AllAssetIdsReferences();
-            var assets = AllAssetId(ScriptType.mobBark, AnimType.none);
-
-            while (refs.Contains(id.ToString()) || assets.Contains(id.ToString()))
+            var refs = AllAssetIdsReferences().ToList();
+            refs.AddRange(AllAssetId(ScriptType.mobBark, AnimType.none));
+            while (refs.Contains(id.ToString()))
                 id++;
 
             return id;
@@ -545,6 +544,13 @@ namespace WakfuAudio.Scripts.Classes
 
         #region Script Management
 
+        public static bool GetOrExtractOrCreate(string id, out LuaScript script)
+        {
+            if (File.Exists(FullPathOfScriptOfType(id)))
+                return GetOrExtract(id, out script);
+            else
+                return GetOrCreate(id, out script);
+        }
         public static bool GetOrExtract(ScriptType type, string id, out LuaScript script)
         {
             if (datas.scripts.ContainsKey(id))
@@ -583,6 +589,26 @@ namespace WakfuAudio.Scripts.Classes
                 script = new LuaScript(type, id);
                 return false;
             }
+        }
+        public static bool GetOrCreate(string id, out LuaScript script)
+        {
+            if (datas.scripts.ContainsKey(id))
+            {
+                script = datas.scripts[id];
+                return true;
+            }
+            else
+            {
+                script = new LuaScript(id);
+                return false;
+            }
+        }
+        public static LuaScript GetOrExtractOrCreate(string id)
+        {
+            if (GetOrExtractOrCreate(id, out LuaScript script))
+                return script;
+            else
+                return null;
         }
         public static LuaScript GetOrExtract(ScriptType type, string id)
         {
