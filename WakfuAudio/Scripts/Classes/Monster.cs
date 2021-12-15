@@ -152,8 +152,15 @@ namespace WakfuAudio.Scripts.Classes
             if (bark)
                 return Database.FirstBarkScriptIdAvailable().ToString();
 
-            var value = "399" + Id + "001";
-
+            string value = "";
+            if(Int64.TryParse(Id, out long longId))
+            {
+                value = "399" + Id + "001";
+            }
+            else
+            {
+                value = "199";
+            }
             var first = Int64.Parse(value);
             while (UsesLuaScript(first.ToString()))
                 first++;
