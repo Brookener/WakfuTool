@@ -147,39 +147,65 @@ namespace WakfuAudio.Scripts.Classes
         {
             return animations.Values.OrderBy(x => (int)x.type).ToList();
         }
+
         public string FirstScriptId(bool bark)
         {
-            if (bark)
-                return Database.FirstBarkScriptIdAvailable().ToString();
-
             string value = "";
-            if(Int64.TryParse(Id, out long longId))
+            long first;
+            List<string> list = new List<string>();
+            switch (type)
             {
-                value = "399" + Id + "001";
+                default:
+                    if (bark)
+                        return Database.FirstBarkScriptIdAvailable().ToString();
+                    value = "399" + Id + "001";
+                    list = AllScriptIds();
+                    break;
+                case Type.players:
+                    if(PlayerClass(out int classId))
+                    {
+                        value = "199" + classId.ToString("000") + "0001";
+                        list = Database.AllClassPlayerScriptId(classId);
+                    }
+                    else
+                    {
+                        value = "1990000003";
+                        list = Database.AllCommonPlayerScriptId();
+                    }
+                    break;
+
             }
-            else
-            {
-                value = "199";
-            }
-            var first = Int64.Parse(value);
-            while (UsesLuaScript(first.ToString()))
+            first = Int64.Parse(value);
+            while (list.Contains(first.ToString()))
                 first++;
             return first.ToString();
         }
-        public string DefaultSoundAsset(AnimType type)
+        public string DefaultSoundAsset(AnimType animType)
         {
             switch (type)
             {
-                case AnimType.attack: return "300" + Id + "001";
-                case AnimType.move: return "310" + Id + "001";
-                case AnimType.hit: return "310" + Id + "101";
-                case AnimType.death: return "310" + Id + "201";
-                case AnimType.other: return "310" + Id + "301";
-                case AnimType.comp: return "320" + Id + "001";
-                case AnimType.dialog: return "320" + Id + "001";
-                case AnimType.fun: return "330" + Id + "001";
-                default: return "300" + Id + "901";
+                default:
+                    switch (animType)
+                    {
+                        default: return "300" + Id + "901";
+                        case AnimType.attack: return "300" + Id + "001";
+                        case AnimType.move: return "310" + Id + "001";
+                        case AnimType.hit: return "310" + Id + "101";
+                        case AnimType.death: return "310" + Id + "201";
+                        case AnimType.other: return "310" + Id + "301";
+                        case AnimType.comp: return "320" + Id + "001";
+                        case AnimType.dialog: return "320" + Id + "001";
+                        case AnimType.fun: return "330" + Id + "001";
+                    }
+                case Type.players:
+                    switch (animType)
+                    {
+                        default: return "1100000001";
+                        case AnimType.attack: return "1000000001";
+                        case AnimType.emote: return "1300000001";
+                    }
             }
+           
         }
         public string FirstSoundAsset(AnimType type)
         {
@@ -206,7 +232,7 @@ namespace WakfuAudio.Scripts.Classes
         public List<string> AllAssets()
         {
             var list = new List<string>();
-            AllScriptIds().Select(x => Database.GetOrExtractOrCreate(x)).ToList().ForEach(x => list.AddRange(x.AllAssets()));
+            AllScriptIds().Select(x => Database.GetOrExtractOrCreate(x)).Where(x => x != null).ToList().ForEach(x => list.AddRange(x.AllAssets()));
             return list;
         }
         public bool IsScriptFileForThisMonster(string script)
@@ -278,6 +304,10 @@ namespace WakfuAudio.Scripts.Classes
         public bool Filter(string filter)
         {
             return Utils.StringContains(Name == null ? "" : Name, filter) || Utils.StringContains(Id, filter) || Utils.StringContains(Family, filter);
+        }
+        public bool PlayerClass(out int classId)
+        {
+            return Int32.TryParse(Family.Split('-')[0], out classId) && type == Type.players;
         }
 
         public static string AnmZoomChain(Type type)

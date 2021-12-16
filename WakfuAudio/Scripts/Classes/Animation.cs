@@ -41,7 +41,17 @@ namespace WakfuAudio.Scripts.Classes
         {
             var script = monster.FirstScriptId(bark);
             (bark ? barks : sounds).Add(script, new List<int>() { 1 });
-            if(!Database.GetOrCreate(bark ? ScriptType.mobBark : ScriptType.mobAnim, script, out LuaScript lua))
+            ScriptType scriptType;
+            switch (monster.type)
+            {
+                default:
+                    scriptType = bark ? ScriptType.mobBark : ScriptType.mobAnim;
+                    break;
+                case Monster.Type.players:
+                    scriptType = bark ? ScriptType.playerBark : ScriptType.playerAnim;
+                    break;
+            }
+            if(!Database.GetOrCreate(scriptType, script, out LuaScript lua))
             {
                 var inte = new Integration(lua, bark ? monster.FirstBarkAsset() : monster.FirstSoundAsset(type));
                 lua.integrations.Add(inte);
@@ -234,6 +244,7 @@ namespace WakfuAudio.Scripts.Classes
                 case "Com" : return AnimType.comp;
                 case "Sau" : return AnimType.other;
                 case "Sta" : return AnimType.fun;
+                case "Emo": return AnimType.emote;
             }
         }
         public static AnimType DetectAnimTypeFromAsset(string asset)
@@ -297,6 +308,6 @@ namespace WakfuAudio.Scripts.Classes
         #endregion
     }
 
-    public enum AnimType { move, attack, hit, death, comp, dialog, fun, other, none }
+    public enum AnimType { move, attack, hit, death, comp, dialog, fun, emote, other, none }
 
 }

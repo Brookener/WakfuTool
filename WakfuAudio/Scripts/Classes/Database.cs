@@ -505,6 +505,18 @@ namespace WakfuAudio.Scripts.Classes
         {
             return AllAnimScriptId().Where(x => x.Substring(0, 3) == "499").ToList();
         }
+        public static List<string> AllPlayerScriptId()
+        {
+            return AllAnimScriptId().Where(x => x.Substring(0, 3) == "199").ToList();
+        }
+        public static List<string> AllCommonPlayerScriptId()
+        {
+            return AllAnimScriptId().Where(x => x.Length > 6 && x.Substring(0, 7) == "1990000").ToList();
+        }
+        public static List<string> AllClassPlayerScriptId(int classId)
+        {
+            return AllAnimScriptId().Where(x => x.Length >= 7 && x.Substring(3,4) == (classId.ToString("000") + "0")).ToList();
+        }
         public static long FirstBarkScriptIdAvailable()
         {
             long id = 499000001;
@@ -641,7 +653,7 @@ namespace WakfuAudio.Scripts.Classes
         }
         public static bool IsScriptUsed(string id, out LuaScript script)
         {
-            script = GetOrExtract(id);
+            script = GetOrExtractOrCreate(id);
             foreach(Monster m in datas.monsters.Values)
                 if (m.UsesLuaScript(id))
                     return true;
@@ -653,7 +665,7 @@ namespace WakfuAudio.Scripts.Classes
         }
         public static void AskScriptDeletion(string scriptId)
         {
-            if (!IsScriptUsed(scriptId, out LuaScript script))
+            if (!IsScriptUsed(scriptId, out LuaScript script) && script != null && script.ScriptFileExists())
                 if (MessageBox.Show("Removed Script is not used anywhere.\nDelete script file ?", "Question", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                     script.DeleteScript();
         }
