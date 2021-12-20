@@ -862,6 +862,7 @@ namespace WakfuAudio.Scripts.Classes
         public bool playerOn;
         public string lastMonsterOpened;
         public List<string> audioPlayers;
+        public bool noteExpanded;
     }
     [Serializable]
     public class DatabaseSave

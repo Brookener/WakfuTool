@@ -42,6 +42,7 @@ namespace WakfuAudio
         public void UpdateInfos()
         {
             NameBlock.Content = new TextBlock() { Text = animation.splited ? animation.SplitedName() : animation.name };
+            NameBlock.ToolTip = animation.name + "\nClick to show animation.Shift + click to play sound of animation";
             SplitButton.Visibility = animation.splited ? Visibility.Collapsed : Visibility.Visible;
             MergeButton.Visibility = animation.splited ? Visibility.Visible : Visibility.Collapsed;
             MainGrid.Background = new SolidColorBrush(Animation.MediaColorFromType(animation.type, 80));

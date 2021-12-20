@@ -51,6 +51,7 @@ namespace WakfuAudio
             ScriptPanel.SelectionChanged += new EventHandler(ScriptPanelSelectionChanged);
 
             Database.CheckIfMonstersAreUpToDate();
+            NoteExpander.IsExpanded = Database.parameters.noteExpanded;
 
         }
         public static void ShowFileInExplorer(string file)
@@ -108,6 +109,18 @@ namespace WakfuAudio
             }
             catch { }
             
+        }
+
+        private void OnNoteExpanded(object sender, RoutedEventArgs e)
+        {
+            Database.parameters.noteExpanded = true;
+            Database.SaveParameters();
+        }
+
+        private void OnNoteCollapsed(object sender, RoutedEventArgs e)
+        {
+            Database.parameters.noteExpanded = false;
+            Database.SaveParameters();
         }
     }
 }

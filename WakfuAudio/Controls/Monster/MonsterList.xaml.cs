@@ -110,9 +110,11 @@ namespace WakfuAudio
                 if ((group.Header as string).IndexOf(filter) > -1)
                     group.Visibility = Visibility.Visible;
 
-                foreach(TreeViewItem item in group.Items)
+                foreach (TreeViewItem item in group.Items)
                     if (Utils.StringContains(item.Header as string, filter))
                         item.Visibility = group.Visibility = Visibility.Visible;
+                    else
+                        item.Visibility = Visibility.Collapsed;
             }
             
         }
