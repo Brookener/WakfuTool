@@ -5,7 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WakfuAudio"
              mc:Ignorable="d" 
-             d:DesignHeight="50" d:DesignWidth="400" Height="27">
+             d:DesignHeight="50" d:DesignWidth="400" Height="27"
+             >
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -19,7 +20,7 @@
         </Grid.ColumnDefinitions>
 
         <!-- Play Asset -->
-        <Button Click="PlayAssetClick" Width="25" BorderThickness="0" ToolTip="Click to play the file. Shift+Click to show in explorer">
+        <Button Click="PlayAssetClick" Width="25" BorderThickness="0" ToolTip="Click to play the file. Shift+Click to show in explorer. Ctrl+Shift+Click to send to Mixer">
             <Button.Background>
                 <ImageBrush ImageSource="../Icons/volume.png" Stretch="Uniform"/>
             </Button.Background>
@@ -37,15 +38,20 @@
                  x:Name="AssetBox" KeyUp="AssetBoxKeyUp" 
                  Background="#FF1D373E" BorderThickness="0" 
                  Foreground="White" SelectionBrush="#FF74BFB5" 
-                 VerticalAlignment="Center" FontSize="14">
+                 VerticalAlignment="Center" FontSize="16">
+            <TextBox.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Add asset to mixer" Click="AddAssetToMixerClick"/>
+                </ContextMenu>
 
+            </TextBox.ContextMenu>
         </TextBox>
         <!-- Volume -->
         <TextBox x:Name="VolumeBox" Grid.Column="3" Width="23" 
                  KeyUp="VolumeBoxKeyUp"
                  Background="#FF2C4A53" BorderThickness="0" 
                  Foreground="White" SelectionBrush="#FF74BFB5" 
-                 Margin="5,0" VerticalAlignment="Center" FontSize="14">
+                 Margin="3,0" VerticalAlignment="Center" FontSize="16">
 
         </TextBox>
         <!-- Remove -->

@@ -37,10 +37,8 @@ namespace WakfuAudio
             Update();
         }
 
-        private async Task Update()
+        private async void Update()
         {
-            await Task.Delay(5);
-
             while (true)
             {
                 if (!barDrag)
@@ -53,12 +51,17 @@ namespace WakfuAudio
         }
         private void UpdateBarValue()
         {
-            Bar.Value = currentAudio == null ? 0 : 
-                ((double)currentAudio.Position.Ticks / currentAudio.NaturalDuration.TimeSpan.Ticks) * 10;
+            if (currentAudio != null && currentAudio.NaturalDuration.HasTimeSpan)
+                Bar.Value = (double)currentAudio.Position.Ticks / currentAudio.NaturalDuration.TimeSpan.Ticks * 10;
+            else
+                Bar.Value = 0;
         }
         private void UpdateTime()
         {
-            Time.Text = currentAudio == null ? "" :new DateTime(currentAudio.Position.Ticks).ToString("mm:ss") + "|" + new DateTime(currentAudio.NaturalDuration.TimeSpan.Ticks).ToString("mm:ss");
+            if (currentAudio != null && currentAudio.NaturalDuration.HasTimeSpan)
+                Time.Text = new DateTime(currentAudio.Position.Ticks).ToString("mm:ss") + "|" + new DateTime(currentAudio.NaturalDuration.TimeSpan.Ticks).ToString("mm:ss");
+            else
+                Time.Text = "";
         }
         private void UpdateVolume()
         {
@@ -91,6 +94,7 @@ namespace WakfuAudio
         }
         private void OnMediaEnded(object sendr, EventArgs e)
         {
+            currentAudio.Stop();
             currentAudio.Position = new TimeSpan(0);
             if (loop)
                 currentAudio.Play();

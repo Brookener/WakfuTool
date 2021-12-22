@@ -43,9 +43,10 @@
             <DataGrid.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="Load Scripts datas from folder content"
-                              Click="LoadScriptFromFolder">
+                              Click="LoadScriptFromFolder"/>
 
-                    </MenuItem>
+                    <MenuItem Header="Add asset to mixer" Click="AddAssetToMixerClick" 
+                              />
                 </ContextMenu>
             </DataGrid.ContextMenu>
 

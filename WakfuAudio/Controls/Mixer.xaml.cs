@@ -26,8 +26,11 @@ namespace WakfuAudio
         {
             InitializeComponent();
         }
-
-        public void Add(string file)
+        public void LoadSavedFiles()
+        {
+            Database.parameters.audioPlayers?.ToList().ForEach(x => Add(x));
+        }
+        private void Add(string file)
         {
             if (!File.Exists(file))
             {
@@ -42,6 +45,7 @@ namespace WakfuAudio
             {
                 Tag = player,
                 Background = Model.Background,
+                BorderThickness = new Thickness(0),
             };
             del.Click += new RoutedEventHandler(DeleteClick);
             del.Height = 59;

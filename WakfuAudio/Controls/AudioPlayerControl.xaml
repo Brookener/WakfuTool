@@ -6,16 +6,18 @@
              xmlns:local="clr-namespace:WakfuAudio"
              mc:Ignorable="d" 
              d:DesignHeight="100" d:DesignWidth="800" 
-             BorderBrush="#FFB8B8B8" BorderThickness="1" Padding="2">
+             BorderBrush="#FFB8B8B8" BorderThickness="0" Padding="2">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="15"/>
             <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
 
-        <TextBlock x:Name="FileNameBox" Foreground="White" VerticalAlignment="Center">
-
+        <TextBlock x:Name="FileNameBox" 
+                   Foreground="White" 
+                   VerticalAlignment="Center">
         </TextBlock>
+        
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="30"/>

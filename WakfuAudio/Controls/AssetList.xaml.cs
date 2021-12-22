@@ -96,6 +96,12 @@ namespace WakfuAudio
         {
             LoadList();
         }
+        private void AddAssetToMixerClick(object sender, RoutedEventArgs e)
+        {
+            foreach (AssetListItem item in AssetPanel.SelectedItems)
+                if(item.sources.Count > 0)
+                    (Application.Current.MainWindow as MainWindow).TheMixer.New(item.sources[0]);
+        }
 
         #endregion
 
@@ -119,5 +125,7 @@ namespace WakfuAudio
             }
 
         }
+
+        
     }
 }

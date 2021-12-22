@@ -106,7 +106,13 @@ namespace WakfuAudio
         private void PlayAssetClick(object sender, RoutedEventArgs e)
         {
             if (Keyboard.IsKeyDown(Key.LeftShift))
-                MainWindow.ShowFileInExplorer(inte.AssetFile());
+            {
+                if (Keyboard.IsKeyDown(Key.LeftCtrl))
+                    (Application.Current.MainWindow as MainWindow).TheMixer.New(inte.FirstAssetSource());
+                else
+                    MainWindow.ShowFileInExplorer(inte.AssetFile());
+
+            }
             else
                 inte.PlayAssetSource();
         }
@@ -115,8 +121,12 @@ namespace WakfuAudio
             CopyAssetName(inte, e);
         }
 
+
         #endregion
 
-
+        private void AddAssetToMixerClick(object sender, RoutedEventArgs e)
+        {
+            (Application.Current.MainWindow as MainWindow).TheMixer.New(inte.FirstAssetSource());
+        }
     }
 }
